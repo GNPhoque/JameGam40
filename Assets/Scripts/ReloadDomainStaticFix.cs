@@ -40,16 +40,13 @@ public class ReloadDomainStaticFix
 	public static IEnumerable<Type> GetEnumerableOfType<T>(params object[] constructorArgs) where T : class
 	{
 		List<Type> objects = new List<Type>();
-		//List<Type> test = Assembly.GetAssembly(typeof(T)).GetTypes().Where(myType => myType.IsClass && !myType.IsAbstract && myType.IsSubclassOf(typeof(T))).ToList();
-		List<Type> test = Assembly.GetAssembly(typeof(T)).GetTypes().Where(myType => myType.FullName.Contains("TestMonoBehaviour")).ToList();
 
 		foreach (Type type in
-			Assembly.GetAssembly(typeof(T)).GetTypes()
+			Assembly.GetAssembly(typeof(ReloadDomainStaticFix)).GetTypes()
 			.Where(myType => myType.IsClass && !myType.IsAbstract && myType.IsSubclassOf(typeof(T))))
 		{
 			objects.Add(type);
 		}
-		objects.Sort();
 		return objects;
 	}
 
