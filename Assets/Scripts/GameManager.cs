@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 	public bool isPaused;
 	public bool isMinigameOpened;
 
-	public bool canChangeRoom { get => isPaused || isMinigameOpened; }
+	public bool canChangeRoom { get => !isPaused && !isMinigameOpened; }
 
 	private void Awake()
 	{

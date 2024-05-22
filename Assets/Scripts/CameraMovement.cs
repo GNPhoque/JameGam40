@@ -16,6 +16,8 @@ public class CameraMovement : MonoBehaviour
 
 	private void Update()
 	{
+		if (!GameManager.instance.canChangeRoom) return;
+
 		if(Input.GetKeyDown(KeyCode.Alpha1)) FocusOnShop();
 		if(Input.GetKeyDown(KeyCode.Alpha2)) FocusOnWorkshop();
 		if(Input.GetKeyDown(KeyCode.Alpha3)) FocusOnGraveyard();
