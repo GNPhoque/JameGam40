@@ -713,7 +713,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4658412844894898795
 Transform:
   m_ObjectHideFlags: 0
@@ -1147,7 +1147,7 @@ MonoBehaviour:
   graveyardMinigameFrame: {fileID: 5043016810023905448}
   cellPrefab: {fileID: 1495002174160055784, guid: c88b4cdde8dd41146a94322b6d110f95, type: 3}
   grid: {fileID: 2185772335744653913}
-  currentShovel: {fileID: 11400000, guid: 5d7e118bd9f2bab47965b85f00d31a17, type: 2}
+  currentShovel: {fileID: 11400000, guid: d0a079eb34edb3941bc2dc5530c916a4, type: 2}
   cellWidth: 100
   cellHeight: 100
   gridX: 5

@@ -20,14 +20,17 @@ public class GraveyardMinigame : MonoBehaviour
 	private void Start()
 	{
 		GraveyardMinigameCell.OnCellClicked += OnCellClicked;
+		GraveyardMinigameCell.OnCellHoverIn += OnCellHoveredIn;
+		GraveyardMinigameCell.OnCellHoverOut += OnCellHoveredOut;
 	}
 
 	//Used for testing displays in editor
 	private void OnValidate()
 	{
+		if (Application.isPlaying) return;
 		if (!generateGridInEditMode)
 		{
-			ClearGrid(); 
+			ClearGrid();
 			return;
 		}
 
@@ -59,7 +62,7 @@ public class GraveyardMinigame : MonoBehaviour
 				float yPos = -(gridY / 2) + y;
 				GraveyardMinigameCell cell = Instantiate(cellPrefab, new Vector3(xPos, yPos, 0) + grid.position, Quaternion.identity, grid);
 				cell.position = new Vector2Int(x, y);
-				cells[x,y] = cell;
+				cells[x, y] = cell;
 			}
 		}
 	}
@@ -80,13 +83,39 @@ public class GraveyardMinigame : MonoBehaviour
 		cells = new GraveyardMinigameCell[gridX, gridY];
 	}
 
+	void OnCellHoveredIn(GraveyardMinigameCell clicked)
+	{
+		foreach (var cell in GetValidTargets(clicked))
+		{
+			cell.Highlight();
+		}
+	}
+
+	void OnCellHoveredOut(GraveyardMinigameCell clicked)
+	{
+		foreach (var cell in GetValidTargets(clicked))
+		{
+			cell.ShowDurability();
+		}
+	}
+
 	void OnCellClicked(GraveyardMinigameCell clicked)
 	{
+		foreach (var cell in GetValidTargets(clicked))
+		{
+			cell.DigUp();
+		}
+	}
+
+	List<GraveyardMinigameCell> GetValidTargets(GraveyardMinigameCell from)
+	{
+		List<GraveyardMinigameCell> targets = new List<GraveyardMinigameCell>();
 		foreach (var target in currentShovel.targets)
 		{
-			Vector2Int targetPos = clicked.position + target.Key;
+			Vector2Int targetPos = from.position + target.Key;
 			if (targetPos.x < 0 || targetPos.x >= gridX || targetPos.y < 0 || targetPos.y >= gridY) continue;
-			cells[targetPos.x, targetPos.y].DigUp(target.Value);
+			targets.Add(cells[targetPos.x, targetPos.y]);
 		}
+		return targets;
 	}
 }
