@@ -1,11 +1,11 @@
 {
-    "name": "Core",
-    "rootNamespace": "",
+    "name": "AYellowpaper.SerializedCollections.Editor",
     "references": [
-        "GUID:4307f53044263cf4b835bd812fc161a4",
         "GUID:d525ad6bd40672747bde77962f1c401e"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
