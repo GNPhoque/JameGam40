@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
+	[SerializeField] bool focusWorkshopOnStart;
 	[SerializeField] CinemachineVirtualCamera camShop;
 	[SerializeField] CinemachineVirtualCamera camWorkshop;
 	[SerializeField] CinemachineVirtualCamera camGraveyard;
 
 	private void Start()
 	{
-		FocusOnWorkshop();
+		if(focusWorkshopOnStart) FocusOnWorkshop();
 	}
 
 	private void Update()

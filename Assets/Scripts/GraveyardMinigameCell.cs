@@ -12,6 +12,7 @@ public class GraveyardMinigameCell : MonoBehaviour, IPointerClickHandler, IPoint
 	public static Action<GraveyardMinigameCell> OnCellHoverOut;
 
 	public int durability;
+	public int incomingShovelDamage;
 	public Vector2Int position;
 
 

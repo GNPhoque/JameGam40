@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5398d1d93e12b44083486f9106a11f6, type: 3}
   m_Name: Shovel Horizontal
   m_EditorClassIdentifier: 
+  energyCost: 2
   targets:
     _serializedList:
     - Key: {x: -5, y: 0}
