@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class GraveyardMinigame : MonoBehaviour
@@ -25,10 +26,35 @@ public class GraveyardMinigame : MonoBehaviour
 	[SerializeField] bool DEBUG_generateGridInEditMode;
 	[SerializeField] bool DEBUG_HideGrid;
 
+	[Header("Animation")]
+	[SerializeField] AnimationCurve dropInAnimationCurve;
+	[SerializeField] float dropInAnimationOffset;
+	[SerializeField] float dropInAnimationMult;
+	[SerializeField] float dropInAnimationDuration;
+	[SerializeField] float currentDropInAnimationDuration;
+	[SerializeField] bool dropInAnimating;
+
+	[SerializeField] AnimationCurve dropOutAnimationCurve;
+	[SerializeField] float dropOutAnimationOffset;
+	[SerializeField] float dropOutAnimationMult;
+	[SerializeField] float dropOutAnimationDuration;
+	[SerializeField] float currentDropOutAnimationDuration;
+	[SerializeField] bool dropOutAnimating;
+
+	DiggableLimb currentLimbToAnimate;
+	Vector2 currentLimbToAnimateStartPosition;
+	[SerializeField] float limbCurveDuration;
+	[SerializeField] float currentLimbCurveDuration;
+	[SerializeField] Vector2 limbCurveMiddle;
+	[SerializeField] Vector2 limbCurveEnd;
+	[SerializeField] bool limbCurveAnimating;
+
+
 	List<DiggableLimb> diggableLimbs = new List<DiggableLimb>();
 	List<DiggableLimb> diggableBonus = new List<DiggableLimb>();
 	GraveyardMinigameCell[,] cells = new GraveyardMinigameCell[0, 0];
 	GraveyardMinigameCell[,] cellsCoveringLimbs = new GraveyardMinigameCell[0, 0];
+
 
 	private void Start()
 	{
@@ -36,6 +62,40 @@ public class GraveyardMinigame : MonoBehaviour
 		GraveyardMinigameCell.OnCellHoverIn += OnCellHoveredIn;
 		GraveyardMinigameCell.OnCellHoverOut += OnCellHoveredOut;
 		GraveyardMinigameCell.OnCellRevealed += OnCellRevealed;
+	}
+
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Escape)) Exit();
+
+		if (dropInAnimating)
+		{
+			currentDropInAnimationDuration += Time.deltaTime;
+			transform.position = new Vector3(18, dropInAnimationCurve.Evaluate(currentDropInAnimationDuration / dropInAnimationDuration) * dropInAnimationMult + dropInAnimationOffset);
+			if (currentDropInAnimationDuration > dropInAnimationDuration) dropInAnimating = false;
+		}
+
+		if (dropOutAnimating)
+		{
+			currentDropOutAnimationDuration += Time.deltaTime;
+			transform.position = new Vector3(18, dropOutAnimationCurve.Evaluate(currentDropOutAnimationDuration / dropOutAnimationDuration) * dropOutAnimationMult + dropOutAnimationOffset);
+			if (currentDropOutAnimationDuration > dropOutAnimationDuration)
+			{
+				dropOutAnimating = false;
+				ClearGrid();
+			}
+		}
+
+		if (limbCurveAnimating)
+		{
+			currentLimbCurveDuration += Time.deltaTime;
+			currentLimbToAnimate.transform.position = LimbAnimationBezierQuadratic(currentLimbCurveDuration / limbCurveDuration);
+			if (currentLimbCurveDuration > limbCurveDuration)
+			{
+				limbCurveAnimating = false;
+				currentLimbToAnimate.gameObject.SetActive(false);
+			}
+		}
 	}
 
 	//Used for testing displays in editor
@@ -86,7 +146,8 @@ public class GraveyardMinigame : MonoBehaviour
 	public void Show()
 	{
 		print("Showing GraveyardMinigame");
-		graveyardMinigameFrame.SetActive(true);
+		currentDropInAnimationDuration = 0;
+		dropInAnimating = true;
 		ResetGrid();
 		SetupLimbs();
 		SetupBonus();
@@ -95,8 +156,8 @@ public class GraveyardMinigame : MonoBehaviour
 
 	public void Exit()
 	{
-		graveyardMinigameFrame.SetActive(false);
-		ClearGrid();
+		currentDropOutAnimationDuration = 0;
+		dropOutAnimating = true;
 	}
 
 	void ResetGrid()
@@ -256,6 +317,22 @@ public class GraveyardMinigame : MonoBehaviour
 		{
 			//TODO : Add limb to inventory
 			Debug.Log("TODO : Add limb to inventory");
+			limb.GetComponent<SpriteRenderer>().sortingOrder = 50;
+			currentLimbToAnimate = limb;
+			currentLimbToAnimateStartPosition = limb.transform.position;
+			limbCurveAnimating = true;
 		}
+	}
+
+	Vector2 LimbAnimationBezierQuadratic(float t)
+	{
+		float u = 1 - t;
+		float tt = t * t;
+		float uu = u * u;
+		Vector2 ret = uu * currentLimbToAnimateStartPosition;
+		ret += 2 * u * t * limbCurveMiddle;
+		ret += tt * limbCurveEnd;
+
+		return ret;
 	}
 }

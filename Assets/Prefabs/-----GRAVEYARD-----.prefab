@@ -537,7 +537,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3801233318751339430}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 18, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -713,7 +713,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4658412844894898795
 Transform:
   m_ObjectHideFlags: 0
@@ -953,7 +953,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 2, y: 2.8571427, z: 1}
+  m_LocalScale: {x: 1.75, y: 1.39, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4658412844894898795}
@@ -1255,7 +1255,7 @@ Transform:
   m_GameObject: {fileID: 6816086323571038028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1293,7 +1293,98 @@ MonoBehaviour:
   cellHeight: 100
   gridX: 10
   gridY: 7
-  generateGridInEditMode: 0
+  DEBUG_generateGridInEditMode: 0
+  DEBUG_HideGrid: 0
+  dropInAnimationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0
+      outWeight: 0.33336633
+    - serializedVersion: 3
+      time: 0.3636
+      value: 1
+      inSlope: 5.5016427
+      outSlope: -2.7491834
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.3332673
+      outWeight: 0.33337367
+    - serializedVersion: 3
+      time: 0.7273
+      value: 1
+      inSlope: 2.749366
+      outSlope: -1.3756089
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.33335155
+      outWeight: 0.33321783
+    - serializedVersion: 3
+      time: 0.9091
+      value: 1
+      inSlope: 1.3747919
+      outSlope: -0.68770427
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.33341584
+      outWeight: 0.33326733
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.6875
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.33336633
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  dropInAnimationOffset: 10
+  dropInAnimationMult: -10
+  dropInAnimationDuration: 1
+  currentDropInAnimationDuration: 0
+  dropInAnimating: 0
+  dropOutAnimationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0
+      outWeight: 0.333333
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 3.0000029
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.33333302
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  dropOutAnimationOffset: 0
+  dropOutAnimationMult: 10
+  dropOutAnimationDuration: 0.3
+  currentDropOutAnimationDuration: 0
+  dropOutAnimating: 0
+  limbCurveDuration: 1
+  currentLimbCurveDuration: 0
+  limbCurveMiddle: {x: 24, y: 4}
+  limbCurveEnd: {x: 26, y: 1}
+  limbCurveAnimating: 0
 --- !u!1 &8286407430483274816
 GameObject:
   m_ObjectHideFlags: 0
