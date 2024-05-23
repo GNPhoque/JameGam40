@@ -9,19 +9,13 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
     public static float snapDistance = 1f;
     public List<SnapPositions> PartAttachments;
 
-    private RectTransform _rectTransform;
-    private RectTransform _parentTransform;
     private LineRenderer _InfoLine;
 
     private SnapPositions _childLink;
+    private Vector3 _previousMousePosition = Vector2.zero;
 
     private void OnValidate()
     {
-        _rectTransform = GetComponent<RectTransform>();
-        if (transform.parent == null)
-            return;
-        _parentTransform = transform.parent.GetComponent<RectTransform>();
-
         _childLink = null;
 
         _InfoLine = GetComponent<LineRenderer>();
@@ -37,16 +31,17 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
                 _childLink = part;
             }
         }
-        if (_childLink != null)
-            _childLink.transform.localPosition = Vector3.zero;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         if (_childLink == null)
             return;
-        Vector2 ratioSize = new Vector2(_parentTransform.rect.width / Screen.width, _parentTransform.rect.height / Screen.height);
-        _rectTransform.anchoredPosition += eventData.delta * ratioSize;
+
+        Vector3 newMousePosition = Camera.main.ScreenToWorldPoint(eventData.position);
+        newMousePosition.z = 0;
+        transform.position += (newMousePosition - _previousMousePosition);
+        _previousMousePosition = newMousePosition;
 
         SnapPositions parent = FindNeerestAttach();
         if (_childLink.snappedTo != null)
@@ -85,20 +80,21 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
     {
         if (!_childLink)
             return;
+        _InfoLine.enabled = false;
         if (_childLink.snappedTo == null)
-        {
-            _InfoLine.enabled = false;
             return;
-        }
-        _rectTransform.SetParent(_childLink.snappedTo.transform);
-        transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.Inverse(_childLink.transform.localRotation);
+        transform.SetParent(_childLink.snappedTo.transform);
+        transform.position = _childLink.snappedTo.transform.position;
+        transform.rotation = _childLink.snappedTo.transform.rotation;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         Debug.Log("OnBeginDrag");
-        _rectTransform.SetParent(_parentTransform);
+        transform.SetParent(null);
+        _previousMousePosition = Camera.main.ScreenToWorldPoint(eventData.position);
+        _previousMousePosition.z = 0;
+
     }
 
     public void OnPointerDown(PointerEventData eventData)
