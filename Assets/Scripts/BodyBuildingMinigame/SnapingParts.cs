@@ -8,19 +8,24 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
 {
     public static float snapDistance = 1f;
     public List<SnapPositions> PartAttachments;
+    public Transform defaultParent;
 
     private LineRenderer _InfoLine;
 
     private SnapPositions _childLink;
     private Vector3 _previousMousePosition = Vector2.zero;
 
-    private void OnValidate()
+    private void Awake()
     {
-        _childLink = null;
-
         _InfoLine = GetComponent<LineRenderer>();
         if (_InfoLine == null)
             _InfoLine = gameObject.AddComponent<LineRenderer>();
+        populateChild();
+    }
+
+    private void populateChild()
+    {
+        _childLink = null;
 
         foreach (SnapPositions part in PartAttachments)
         {
@@ -35,13 +40,14 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (_childLink == null)
-            return;
 
         Vector3 newMousePosition = Camera.main.ScreenToWorldPoint(eventData.position);
         newMousePosition.z = 0;
         transform.position += (newMousePosition - _previousMousePosition);
         _previousMousePosition = newMousePosition;
+
+        if (_childLink == null)
+            return;
 
         SnapPositions parent = FindNeerestAttach();
         if (_childLink.snappedTo != null)
@@ -91,7 +97,7 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
     public void OnBeginDrag(PointerEventData eventData)
     {
         Debug.Log("OnBeginDrag");
-        transform.SetParent(null);
+        transform.SetParent(defaultParent);
         _previousMousePosition = Camera.main.ScreenToWorldPoint(eventData.position);
         _previousMousePosition.z = 0;
 
