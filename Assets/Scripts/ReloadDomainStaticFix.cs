@@ -54,5 +54,7 @@ public class ReloadDomainStaticFix
 	{
 		//Set all your statics here
 		//TestMonoBehaviour.integer = 5;
+		SnapPositions.parentSnapers = new List<SnapPositions>();
+		SnapingParts.snapDistance = 1f;
 	}
 }
