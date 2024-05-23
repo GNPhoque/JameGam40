@@ -4,5 +4,9 @@ using UnityEngine;
 
 public class DiggableLimb : MonoBehaviour
 {
+	public bool isBonus;
+	public int energyBonus;
+
+	public List<Vector2Int> coveredPositionsSetup;
 	public List<Vector2Int> coveredPositions;
 }

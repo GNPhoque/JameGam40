@@ -10,18 +10,23 @@ public class GraveyardMinigame : MonoBehaviour
 	[SerializeField] Transform grid;
 	[SerializeField] Shovel currentShovel;
 	[SerializeField] DiggableLimb[] diggableLimbPrefabs;
-	[SerializeField] List<DiggableLimb> diggableLimbs;
+	[SerializeField] DiggableLimb diggableBonusPrefab;
 
 	[SerializeField] int limbsCount;
+	[SerializeField] int bonusCount;
 	[SerializeField] int maxLimbTryPosition;
+	[SerializeField] int maxBonusTryPosition;
 	[SerializeField] int startEnergy;
 	[SerializeField] int currentEnergy;
 	[SerializeField] int cellWidth;
 	[SerializeField] int cellHeight;
 	[SerializeField] int gridX;
 	[SerializeField] int gridY;
-	[SerializeField] bool generateGridInEditMode;
+	[SerializeField] bool DEBUG_generateGridInEditMode;
+	[SerializeField] bool DEBUG_HideGrid;
 
+	List<DiggableLimb> diggableLimbs = new List<DiggableLimb>();
+	List<DiggableLimb> diggableBonus = new List<DiggableLimb>();
 	GraveyardMinigameCell[,] cells = new GraveyardMinigameCell[0, 0];
 	GraveyardMinigameCell[,] cellsCoveringLimbs = new GraveyardMinigameCell[0, 0];
 
@@ -30,13 +35,14 @@ public class GraveyardMinigame : MonoBehaviour
 		GraveyardMinigameCell.OnCellClicked += OnCellClicked;
 		GraveyardMinigameCell.OnCellHoverIn += OnCellHoveredIn;
 		GraveyardMinigameCell.OnCellHoverOut += OnCellHoveredOut;
+		GraveyardMinigameCell.OnCellRevealed += OnCellRevealed;
 	}
 
 	//Used for testing displays in editor
 	private void OnValidate()
 	{
 		if (Application.isPlaying) return;
-		if (!generateGridInEditMode)
+		if (!DEBUG_generateGridInEditMode)
 		{
 			ClearGrid();
 			return;
@@ -65,10 +71,14 @@ public class GraveyardMinigame : MonoBehaviour
 	void OnCellClicked(GraveyardMinigameCell clicked)
 	{
 		if (currentEnergy < currentShovel.energyCost) return; //TODO : Add sound
+		currentEnergy -= currentShovel.energyCost;
+
 		foreach (var cell in GetValidTargets(clicked))
 		{
 			cell.DigUp(cell.incomingShovelDamage);
 		}
+
+		if (currentEnergy <= 0) GameManager.instance.CloseGraveyardMinigame();
 	}
 	#endregion
 
@@ -79,12 +89,14 @@ public class GraveyardMinigame : MonoBehaviour
 		graveyardMinigameFrame.SetActive(true);
 		ResetGrid();
 		SetupLimbs();
+		SetupBonus();
 		currentEnergy = startEnergy;
 	}
 
 	public void Exit()
 	{
 		graveyardMinigameFrame.SetActive(false);
+		ClearGrid();
 	}
 
 	void ResetGrid()
@@ -104,6 +116,7 @@ public class GraveyardMinigame : MonoBehaviour
 				cell.position = new Vector2Int(x, y);
 				cell.gameObject.name = $"Cell {x},{y}";
 				cells[x, y] = cell;
+				if(DEBUG_HideGrid) cell.gameObject.SetActive(false);
 			}
 		}
 	}
@@ -127,22 +140,26 @@ public class GraveyardMinigame : MonoBehaviour
 
 	void SetupLimbs()
 	{
+		diggableLimbs.Clear();
 		int tryCount = 0;
 		int placedLimbs = 0;
+
 		for (int i = 0; i < limbsCount; i++)
 		{
 			DiggableLimb limb = diggableLimbPrefabs[Random.Range(0, diggableLimbPrefabs.Length)];
 			while (tryCount < maxLimbTryPosition)
 			{
-				Vector2Int position = new Vector2Int(Random.Range(-limb.coveredPositions.Min(x => x.x), gridX - limb.coveredPositions.Max(x => x.x)),
-													Random.Range(-limb.coveredPositions.Min(x => x.y), gridY - limb.coveredPositions.Max(x => x.y)));
+				Vector2Int position = new Vector2Int(Random.Range(-limb.coveredPositionsSetup.Min(x => x.x), gridX - limb.coveredPositionsSetup.Max(x => x.x)),
+													Random.Range(-limb.coveredPositionsSetup.Min(x => x.y), gridY - limb.coveredPositionsSetup.Max(x => x.y)));
 				if (IsLimbPositionValid(position, limb))
 				{
-					diggableLimbs.Add(Instantiate(limb, cells[position.x,position.y].transform.position, Quaternion.identity, grid));
-					foreach (var pos in limb.coveredPositions)
+					DiggableLimb spawned = Instantiate(limb, cells[position.x,position.y].transform.position, Quaternion.identity, grid);
+					diggableLimbs.Add(spawned);
+					foreach (var pos in limb.coveredPositionsSetup)
 					{
 						Vector2Int coveringPosition = new Vector2Int(position.x + pos.x, position.y + pos.y);
 						cellsCoveringLimbs[coveringPosition.x, coveringPosition.y] = cells[coveringPosition.x, coveringPosition.y];
+						spawned.coveredPositions.Add(coveringPosition);
 					}
 					Debug.Log($"{limb.name} placed at : {position}");
 					placedLimbs++;
@@ -158,9 +175,45 @@ public class GraveyardMinigame : MonoBehaviour
 		Debug.Log($"Placed {placedLimbs} out of {limbsCount} expected");
 	}
 
+	void SetupBonus()
+	{
+		diggableBonus.Clear();
+		int tryCount = 0;
+		int placedBonus = 0;
+
+		for (int i = 0; i < bonusCount; i++)
+		{
+			while (tryCount < maxBonusTryPosition)
+			{
+				Vector2Int position = new Vector2Int(Random.Range(-diggableBonusPrefab.coveredPositionsSetup.Min(x => x.x), gridX - diggableBonusPrefab.coveredPositionsSetup.Max(x => x.x)),
+													Random.Range(-diggableBonusPrefab.coveredPositionsSetup.Min(x => x.y), gridY - diggableBonusPrefab.coveredPositionsSetup.Max(x => x.y)));
+				if (IsLimbPositionValid(position, diggableBonusPrefab))
+				{
+					DiggableLimb spawned = Instantiate(diggableBonusPrefab, cells[position.x,position.y].transform.position, Quaternion.identity, grid);
+					diggableBonus.Add(spawned);
+					foreach (var pos in diggableBonusPrefab.coveredPositionsSetup)
+					{
+						Vector2Int coveringPosition = new Vector2Int(position.x + pos.x, position.y + pos.y);
+						cellsCoveringLimbs[coveringPosition.x, coveringPosition.y] = cells[coveringPosition.x, coveringPosition.y];
+						spawned.coveredPositions.Add(coveringPosition);
+					}
+					Debug.Log($"Bonus placed at : {position}");
+					placedBonus++;
+					break;
+				}
+				else
+				{
+					Debug.Log($"Bad position : {position}");
+					tryCount++;
+				}
+			}
+		}
+		Debug.Log($"Placed {placedBonus} out of {bonusCount} expected");
+	}
+
 	bool IsLimbPositionValid(Vector2Int position, DiggableLimb limb)
 	{
-		foreach (var target in limb.coveredPositions)
+		foreach (var target in limb.coveredPositionsSetup)
 		{
 			Vector2Int targetPos = position + target;
 			//Check if position is in grid and not already covering another limb
@@ -176,9 +229,33 @@ public class GraveyardMinigame : MonoBehaviour
 		{
 			Vector2Int targetPos = from.position + target.Key;
 			if (targetPos.x < 0 || targetPos.x >= gridX || targetPos.y < 0 || targetPos.y >= gridY) continue;
+			if (cells[targetPos.x, targetPos.y].isRevealed) continue;
+
 			targets.Add(cells[targetPos.x, targetPos.y]);
 			cells[targetPos.x, targetPos.y].incomingShovelDamage = target.Value;
 		}
 		return targets;
+	}
+
+	public void OnCellRevealed(GraveyardMinigameCell revealedCell)
+	{
+		DiggableLimb limb = diggableLimbs.FirstOrDefault(x => x.coveredPositions.Contains(revealedCell.position));
+		if (limb == null)
+		{
+			limb = diggableBonus.FirstOrDefault(x => x.coveredPositions.Contains(revealedCell.position));
+			if (limb == null) return; //No hidden object revealed
+		}
+
+		foreach (var item in limb.coveredPositions)
+		{
+			if (cells[item.x, item.y].isRevealed == false) return; //limb is still partially covered
+		}
+
+		if (limb.isBonus) currentEnergy += limb.energyBonus;
+		else
+		{
+			//TODO : Add limb to inventory
+			Debug.Log("TODO : Add limb to inventory");
+		}
 	}
 }

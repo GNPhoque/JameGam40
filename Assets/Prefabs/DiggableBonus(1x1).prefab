@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6042017547551870282}
   - component: {fileID: 5740419195591950782}
   m_Layer: 0
-  m_Name: DiggableLimb(2x2)
+  m_Name: DiggableBonus(1x1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 8
-  m_Sprite: {fileID: 21300000, guid: 011bb8fc529399b44b80628bf222f5a6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a709145a379ccb34faf3b8fa6111873d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,11 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeef8bce2831b364fba00260ed6578ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isBonus: 0
-  energyBonus: 0
+  isBonus: 1
+  energyBonus: 3
   coveredPositionsSetup:
   - {x: 0, y: 0}
-  - {x: 1, y: 0}
-  - {x: 0, y: 1}
-  - {x: 1, y: 1}
   coveredPositions: []

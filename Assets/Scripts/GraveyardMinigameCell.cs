@@ -10,7 +10,9 @@ public class GraveyardMinigameCell : MonoBehaviour, IPointerClickHandler, IPoint
 	public static Action<GraveyardMinigameCell> OnCellClicked;
 	public static Action<GraveyardMinigameCell> OnCellHoverIn;
 	public static Action<GraveyardMinigameCell> OnCellHoverOut;
+	public static Action<GraveyardMinigameCell> OnCellRevealed;
 
+	public bool isRevealed;
 	public int durability;
 	public int incomingShovelDamage;
 	public Vector2Int position;
@@ -49,8 +51,9 @@ public class GraveyardMinigameCell : MonoBehaviour, IPointerClickHandler, IPoint
 	}
 
 	void Reveal()
-	{
-		//TODO : show what is hidden under the cell, if fully revealed, add to storage
+	{		
 		gameObject.SetActive(false);
+		isRevealed = true;
+		OnCellRevealed?.Invoke(this);
 	}
 }
