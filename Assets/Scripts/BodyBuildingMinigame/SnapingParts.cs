@@ -18,6 +18,8 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
     private void OnValidate()
     {
         _rectTransform = GetComponent<RectTransform>();
+        if (transform.parent == null)
+            return;
         _parentTransform = transform.parent.GetComponent<RectTransform>();
 
         _childLink = null;
@@ -34,8 +36,9 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
                     Debug.LogError($"Only one child attachment is allowed");
                 _childLink = part;
             }
-
         }
+        if (_childLink != null)
+            _childLink.transform.localPosition = Vector3.zero;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -83,11 +86,19 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
         if (!_childLink)
             return;
         if (_childLink.snappedTo == null)
+        {
             _InfoLine.enabled = false;
+            return;
+        }
+        _rectTransform.SetParent(_childLink.snappedTo.transform);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.Inverse(_childLink.transform.localRotation);
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        Debug.Log("OnBeginDrag");
+        _rectTransform.SetParent(_parentTransform);
     }
 
     public void OnPointerDown(PointerEventData eventData)
