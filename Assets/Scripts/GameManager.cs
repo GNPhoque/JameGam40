@@ -6,7 +6,8 @@ public class GameManager : MonoBehaviour
 {
 	public static GameManager instance;
 
-	[SerializeField] BodyBuildingMinigame bodyBuildingMinigame;
+	[SerializeField] UIManager uiManager;
+	//[SerializeField] BodyBuildingMinigame bodyBuildingMinigame;
 	[SerializeField] GraveyardMinigame graveyardMinigame;
 	[SerializeField] Inventory inventory;
 	[SerializeField] Inventory startingInventory;
@@ -22,18 +23,21 @@ public class GameManager : MonoBehaviour
 		if (instance) Destroy(instance.gameObject);
 
 		instance = this;
+		GraveyardMinigame.OnEnergyValueChanged += uiManager.UpdateUraveyardEnergyText;
 		Grave.OnGraveClicked += OpenGraveyardMinigame;
 		inventory.SetInventory(startingInventory);
 	}
 
 	private void OnDestroy()
 	{
+		GraveyardMinigame.OnEnergyValueChanged -= uiManager.UpdateUraveyardEnergyText;
 		Grave.OnGraveClicked -= OpenGraveyardMinigame;
 	}
 
 	public void OpenGraveyardMinigame(Grave grave)
 	{
 		isMinigameOpened = true;
+		uiManager.ShowGraveyardEnergy();
 		graveyardMinigame.SetWeightedDiggableLimb(grave);
 		graveyardMinigame.Show();
 	}
@@ -41,6 +45,7 @@ public class GameManager : MonoBehaviour
 	public void CloseGraveyardMinigame()
 	{
 		isMinigameOpened = false;
+		uiManager.HideGraveyardEnergy();
 		graveyardMinigame.Exit();
 	}
 

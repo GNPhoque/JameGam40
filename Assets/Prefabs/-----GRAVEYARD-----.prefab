@@ -865,18 +865,14 @@ MonoBehaviour:
   grid: {fileID: 2185772335744653913}
   currentShovel: {fileID: 11400000, guid: d0a079eb34edb3941bc2dc5530c916a4, type: 2}
   weightedDiggableLimbPrefabs:
-    _serializedList:
-    - Key: {fileID: 5740419195591950782, guid: 09d035241ca3fc448be036b105808b2e, type: 3}
-      Value: 0
-    - Key: {fileID: 5740419195591950782, guid: daa524faafa5a2e4ea9838e49f4fcfbf, type: 3}
-      Value: 0
+    _serializedList: []
   diggableBonusPrefab: {fileID: 5740419195591950782, guid: f3ee7944ba6f5104d8e8d54607d6cf1a, type: 3}
   limbsCount: 5
   bonusCount: 10
   maxLimbTryPosition: 100
   maxBonusTryPosition: 100
   startEnergy: 20
-  currentEnergy: 0
+  _currentEnergy: 0
   cellWidth: 100
   cellHeight: 100
   gridX: 10

@@ -1,12 +1,16 @@
 using AYellowpaper.SerializedCollections;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GraveyardMinigame : MonoBehaviour
 {
+	public static event Action<int> OnEnergyValueChanged;
+
 	[SerializeField] GameObject graveyardMinigameFrame;
 	[SerializeField] GraveyardMinigameCell cellPrefab;
 	[SerializeField] Transform grid;
@@ -20,7 +24,7 @@ public class GraveyardMinigame : MonoBehaviour
 	[SerializeField] int maxLimbTryPosition;
 	[SerializeField] int maxBonusTryPosition;
 	[SerializeField] int startEnergy;
-	[SerializeField] int currentEnergy;
+	[SerializeField] int _currentEnergy;
 	[SerializeField] int cellWidth;
 	[SerializeField] int cellHeight;
 	[SerializeField] int gridX;
@@ -50,12 +54,24 @@ public class GraveyardMinigame : MonoBehaviour
 	[SerializeField] Vector2 limbCurveMiddle;
 	[SerializeField] Vector2 limbCurveEnd;
 	[SerializeField] bool limbCurveAnimating;
+	[SerializeField] bool waitForEndOfCurveToDropOut;
 
 
 	List<DiggableLimb> diggableLimbs = new List<DiggableLimb>();
 	List<DiggableLimb> diggableBonus = new List<DiggableLimb>();
 	GraveyardMinigameCell[,] cells = new GraveyardMinigameCell[0, 0];
 	GraveyardMinigameCell[,] cellsCoveringLimbs = new GraveyardMinigameCell[0, 0];
+
+	int currentEnergy
+	{
+		get { return _currentEnergy; }
+		set
+		{
+			_currentEnergy = value;
+			OnEnergyValueChanged?.Invoke(value);
+		}
+	}
+
 
 
 	private void Start()
@@ -95,6 +111,11 @@ public class GraveyardMinigame : MonoBehaviour
 			if (currentLimbCurveDuration > limbCurveDuration)
 			{
 				limbCurveAnimating = false;
+				if (waitForEndOfCurveToDropOut)
+				{
+					waitForEndOfCurveToDropOut = false;
+					dropOutAnimating = true;
+				}
 				currentLimbToAnimate.gameObject.SetActive(false);
 				if (diggableLimbs.Count == 0) GameManager.instance.CloseGraveyardMinigame();
 			}
@@ -161,7 +182,8 @@ public class GraveyardMinigame : MonoBehaviour
 	public void Exit()
 	{
 		currentDropOutAnimationDuration = 0;
-		dropOutAnimating = true;
+		if (limbCurveAnimating) waitForEndOfCurveToDropOut = true;
+		else dropOutAnimating = true;
 	}
 
 	void ResetGrid()

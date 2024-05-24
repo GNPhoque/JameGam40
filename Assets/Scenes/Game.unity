@@ -548,7 +548,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b52053fe86597340bfabbe005acbe2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bodyBuildingMinigame: {fileID: 0}
+  uiManager: {fileID: 7831784611521800410}
   graveyardMinigame: {fileID: 3626031279701543644}
   inventory: {fileID: 11400000, guid: 473bbb80b049a77419f90b84e9286580, type: 2}
   startingInventory: {fileID: 11400000, guid: beb759011e62b434393c56d4b0a7b5cd, type: 2}
@@ -1292,6 +1292,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a979cb74b5e07e246aeb8d0da4cfa5e2, type: 3}
+--- !u!114 &7831784611521800410 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8947168565213918727, guid: a979cb74b5e07e246aeb8d0da4cfa5e2, type: 3}
+  m_PrefabInstance: {fileID: 7831784611521800409}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca24ba94d607bd438f1997fa5092c24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
