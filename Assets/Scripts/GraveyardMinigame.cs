@@ -1,3 +1,4 @@
+using AYellowpaper.SerializedCollections;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,8 @@ public class GraveyardMinigame : MonoBehaviour
 	[SerializeField] GraveyardMinigameCell cellPrefab;
 	[SerializeField] Transform grid;
 	[SerializeField] Shovel currentShovel;
-	[SerializeField] DiggableLimb[] diggableLimbPrefabs;
+	[SerializeField] SerializedDictionary<DiggableLimb, int> weightedDiggableLimbPrefabs;
+	//[SerializeField] DiggableLimb[] diggableLimbPrefabs;
 	[SerializeField] DiggableLimb diggableBonusPrefab;
 
 	[SerializeField] int limbsCount;
@@ -209,7 +211,8 @@ public class GraveyardMinigame : MonoBehaviour
 
 		for (int i = 0; i < limbsCount; i++)
 		{
-			DiggableLimb limb = diggableLimbPrefabs[Random.Range(0, diggableLimbPrefabs.Length)];
+			//DiggableLimb limb = diggableLimbPrefabs[Random.Range(0, diggableLimbPrefabs.Length)];
+			DiggableLimb limb = GetWeightedDiggableLimb();
 			while (tryCount < maxLimbTryPosition)
 			{
 				Vector2Int position = new Vector2Int(Random.Range(-limb.coveredPositionsSetup.Min(x => x.x), gridX - limb.coveredPositionsSetup.Max(x => x.x)),
@@ -351,5 +354,35 @@ public class GraveyardMinigame : MonoBehaviour
 		ret += tt * limbCurveEnd;
 
 		return ret;
+	}
+
+	public void SetWeightedDiggableLimb(Grave grave)
+	{
+		weightedDiggableLimbPrefabs = grave.weightedDiggableLimbPrefabs;
+	}
+
+	DiggableLimb GetWeightedDiggableLimb()
+	{
+		float sumOfWeights = 0;
+		foreach (var weightedObject in weightedDiggableLimbPrefabs)
+		{
+			sumOfWeights += weightedObject.Value;
+		}
+
+		DiggableLimb selected = weightedDiggableLimbPrefabs.First().Key;
+		float randChoice = Random.Range(0, sumOfWeights);
+		float weightSum = 0;
+
+		foreach (var weightedObject in weightedDiggableLimbPrefabs)
+		{
+			weightSum += weightedObject.Value;
+			if (randChoice <= weightSum)
+			{
+				selected = weightedObject.Key;
+				break;
+			}
+		}
+
+		return selected;
 	}
 }

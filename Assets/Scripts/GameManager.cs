@@ -31,9 +31,10 @@ public class GameManager : MonoBehaviour
 		Grave.OnGraveClicked -= OpenGraveyardMinigame;
 	}
 
-	public void OpenGraveyardMinigame()
+	public void OpenGraveyardMinigame(Grave grave)
 	{
 		isMinigameOpened = true;
+		graveyardMinigame.SetWeightedDiggableLimb(grave);
 		graveyardMinigame.Show();
 	}
 
