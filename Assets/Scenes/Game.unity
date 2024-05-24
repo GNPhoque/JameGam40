@@ -550,6 +550,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bodyBuildingMinigame: {fileID: 0}
   graveyardMinigame: {fileID: 3626031279701543644}
+  inventory: {fileID: 11400000, guid: 473bbb80b049a77419f90b84e9286580, type: 2}
+  startingInventory: {fileID: 11400000, guid: beb759011e62b434393c56d4b0a7b5cd, type: 2}
   isPaused: 0
   isMinigameOpened: 0
 --- !u!1 &1225588292
@@ -991,6 +993,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ee959d8310f75499bfc313496b74c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  focusWorkshopOnStart: 0
   camShop: {fileID: 719193329}
   camWorkshop: {fileID: 258949901}
   camGraveyard: {fileID: 2073883594}

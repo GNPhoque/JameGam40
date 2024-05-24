@@ -315,8 +315,7 @@ public class GraveyardMinigame : MonoBehaviour
 		if (limb.isBonus) currentEnergy += limb.energyBonus;
 		else
 		{
-			//TODO : Add limb to inventory
-			Debug.Log("TODO : Add limb to inventory");
+			GameManager.instance.AddLimb(limb.inventoryLimbName);
 			limb.GetComponent<SpriteRenderer>().sortingOrder = 50;
 			currentLimbToAnimate = limb;
 			currentLimbToAnimateStartPosition = limb.transform.position;

@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField] BodyBuildingMinigame bodyBuildingMinigame;
 	[SerializeField] GraveyardMinigame graveyardMinigame;
+	[SerializeField] Inventory inventory;
+	[SerializeField] Inventory startingInventory;
 
 	//Game state
 	public bool isPaused;
@@ -21,6 +23,7 @@ public class GameManager : MonoBehaviour
 
 		instance = this;
 		Grave.OnGraveClicked += OpenGraveyardMinigame;
+		inventory.SetInventory(startingInventory);
 	}
 
 	private void OnDestroy()
@@ -38,5 +41,15 @@ public class GameManager : MonoBehaviour
 	{
 		isMinigameOpened = false;
 		graveyardMinigame.Exit();
+	}
+
+	public void AddLimb(string limb, int qty = 1)
+	{
+		inventory.AddLimb(limb, qty);
+	}
+
+	public bool TakeLimb(string limb, int qty = 1)
+	{
+		return inventory.TakeLimb(limb, qty);
 	}
 }

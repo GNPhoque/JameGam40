@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isBonus: 0
   energyBonus: 0
+  inventoryLimbName: Leg
   coveredPositionsSetup:
   - {x: 0, y: 0}
   - {x: 0, y: 1}
