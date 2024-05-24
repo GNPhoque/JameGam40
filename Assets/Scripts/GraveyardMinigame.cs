@@ -94,6 +94,7 @@ public class GraveyardMinigame : MonoBehaviour
 			{
 				limbCurveAnimating = false;
 				currentLimbToAnimate.gameObject.SetActive(false);
+				if (diggableLimbs.Count == 0) GameManager.instance.CloseGraveyardMinigame();
 			}
 		}
 	}
@@ -130,6 +131,7 @@ public class GraveyardMinigame : MonoBehaviour
 
 	void OnCellClicked(GraveyardMinigameCell clicked)
 	{
+		if (dropInAnimating || dropOutAnimating || diggableLimbs.Count == 0) return;
 		if (currentEnergy < currentShovel.energyCost) return; //TODO : Add sound
 		currentEnergy -= currentShovel.energyCost;
 
@@ -312,13 +314,29 @@ public class GraveyardMinigame : MonoBehaviour
 			if (cells[item.x, item.y].isRevealed == false) return; //limb is still partially covered
 		}
 
-		if (limb.isBonus) currentEnergy += limb.energyBonus;
-		else
+		//if (limb.isBonus) currentEnergy += limb.energyBonus; stamina bonus
+		if (limb.isBonus) //Dig up a random unrevealed Cell
 		{
+			while (true)
+			{
+				int x = Random.Range(0, gridX);
+				int y = Random.Range(0, gridY);
+				
+				if (!cells[x, y].isRevealed)
+				{
+					cells[x, y].DigUp(50);
+					return;
+				}
+			}
+		}
+		else //Limb dug up!
+		{
+			diggableLimbs.Remove(limb);
 			GameManager.instance.AddLimb(limb.inventoryLimbName);
 			limb.GetComponent<SpriteRenderer>().sortingOrder = 50;
 			currentLimbToAnimate = limb;
 			currentLimbToAnimateStartPosition = limb.transform.position;
+			currentLimbCurveDuration = 0f;
 			limbCurveAnimating = true;
 		}
 	}

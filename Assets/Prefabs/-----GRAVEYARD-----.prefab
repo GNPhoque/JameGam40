@@ -1283,11 +1283,11 @@ MonoBehaviour:
   - {fileID: 5740419195591950782, guid: 09d035241ca3fc448be036b105808b2e, type: 3}
   - {fileID: 5740419195591950782, guid: daa524faafa5a2e4ea9838e49f4fcfbf, type: 3}
   diggableBonusPrefab: {fileID: 5740419195591950782, guid: f3ee7944ba6f5104d8e8d54607d6cf1a, type: 3}
-  limbsCount: 3
+  limbsCount: 5
   bonusCount: 10
   maxLimbTryPosition: 100
   maxBonusTryPosition: 100
-  startEnergy: 10
+  startEnergy: 20
   currentEnergy: 0
   cellWidth: 100
   cellHeight: 100
