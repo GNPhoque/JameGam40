@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class ReloadDomainStaticFix
 {
+#if UNITY_EDITOR
 	[InitializeOnEnterPlayMode]
 	static void OnEnterPlaymodeInEditor(EnterPlayModeOptions options)
 	{
@@ -14,6 +15,7 @@ public class ReloadDomainStaticFix
 		ResetStaticsOnEnterPlaymode<MonoBehaviour>();
 		SetDefaultStaticValues();
 	}
+#endif
 
 	static void ResetStaticsOnEnterPlaymode<T>() where T : class
 	{
