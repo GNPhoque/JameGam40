@@ -882,7 +882,7 @@ MonoBehaviour:
   gridX: 10
   gridY: 7
   DEBUG_generateGridInEditMode: 0
-  DEBUG_HideGrid: 1
+  DEBUG_HideGrid: 0
   dropInAnimationCurve:
     serializedVersion: 2
     m_Curve:
