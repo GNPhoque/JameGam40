@@ -35,17 +35,20 @@ public class CameraMovement : MonoBehaviour
 	{
 		UnfocusCameras();
 		camShop.Priority = 10;
+		AudioManager.instance.CrossfadeToShop();
 	}
 
 	public void FocusOnWorkshop()
 	{
 		UnfocusCameras();
 		camWorkshop.Priority = 10;
+		AudioManager.instance.CrossfadeToWorkshop();
 	}
 
 	public void FocusOnGraveyard()
 	{
 		UnfocusCameras();
 		camGraveyard.Priority = 10;
+		AudioManager.instance.CrossfadeToGraveyard();
 	}
 }
