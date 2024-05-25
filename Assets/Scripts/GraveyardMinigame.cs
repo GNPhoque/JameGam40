@@ -84,7 +84,7 @@ public class GraveyardMinigame : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Escape)) Exit();
+		if (Input.GetKeyDown(KeyCode.Escape)) GameManager.instance.CloseGraveyardMinigame();
 
 		if (dropInAnimating)
 		{
