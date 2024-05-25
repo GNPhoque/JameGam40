@@ -14,15 +14,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   limbs:
     _serializedList:
-    - Key: Head
-      Value: 1
-    - Key: Torso
-      Value: 3
-    - Key: Arm
-      Value: 2
-    - Key: Hand
+    - Key: Arm1_1
       Value: 0
-    - Key: Leg
-      Value: 1
-    - Key: Foot
+    - Key: Arm2_1
+      Value: 0
+    - Key: Arm2_2
+      Value: 0
+    - Key: ArmFull
+      Value: 0
+    - Key: Foot1_1
+      Value: 0
+    - Key: Foot2_1
+      Value: 0
+    - Key: Foot2_2
+      Value: 0
+    - Key: Hand1_1
+      Value: 0
+    - Key: Hand2_1
+      Value: 0
+    - Key: Hand2_2
+      Value: 0
+    - Key: Head1_1
+      Value: 0
+    - Key: Head2_1
+      Value: 0
+    - Key: Leg1_1
+      Value: 0
+    - Key: Leg2_1
+      Value: 0
+    - Key: Leg2_2
+      Value: 0
+    - Key: LegFull
+      Value: 0
+    - Key: Torso1_1
+      Value: 0
+    - Key: Torso2_1
       Value: 0
