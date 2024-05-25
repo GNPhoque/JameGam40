@@ -14,6 +14,17 @@ public class SnapPositions : MonoBehaviour
     public static List<SnapPositions> parentSnapers;
 
     public SnapPositions snappedTo = null;
+    public bool sewed = false;
+
+    public void sew()
+    {
+        if (!snappedTo)
+            return;
+        if (sewed)
+            return;
+        sewed = true;
+        snappedTo.sew();
+    }
 
     private void Awake()
     {

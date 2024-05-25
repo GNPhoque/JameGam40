@@ -40,6 +40,8 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (_childLink != null && _childLink.sewed)
+            return;
 
         Vector3 newMousePosition = Camera.main.ScreenToWorldPoint(eventData.position);
         newMousePosition.z = 0;
@@ -62,12 +64,18 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
             _childLink.snappedTo = parent;
             _childLink.snappedTo.snappedTo = _childLink;
             AttachmentLine();
+            rotationPrevious();
             return;
         }
         if (gameObject.GetComponent<LineRenderer>() != null)
         {
             _InfoLine.enabled = false;
         }
+    }
+
+    public void rotationPrevious()
+    {
+        transform.rotation = _childLink.snappedTo.transform.rotation;
     }
 
     public void AttachmentLine()
@@ -97,6 +105,8 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
     public void OnBeginDrag(PointerEventData eventData)
     {
         Debug.Log("OnBeginDrag");
+        if (_childLink != null && _childLink.sewed)
+            return;
         transform.SetParent(defaultParent);
         _previousMousePosition = Camera.main.ScreenToWorldPoint(eventData.position);
         _previousMousePosition.z = 0;

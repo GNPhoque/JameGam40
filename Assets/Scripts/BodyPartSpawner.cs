@@ -18,6 +18,17 @@ public class BodyPartSpawner : MonoBehaviour, IPointerClickHandler, IDropHandler
         Debug.Log($"droped {dropedObject.name} on {name}");
         if (!_spawned.Contains(dropedObject))
             return;
+
+        // check for any snapped object
+        SnapingParts objectScript = dropedObject.GetComponent<SnapingParts>();
+        if (objectScript == null)
+            return;
+        foreach (SnapPositions posSnaper in objectScript.PartAttachments)
+        {
+            if (posSnaper.snappedTo != null)
+                return;
+        }
+
         GameManager.instance.AddLimb(partName);
         _spawned.Remove(dropedObject);
         Destroy(dropedObject);
