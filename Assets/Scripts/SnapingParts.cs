@@ -45,8 +45,9 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
 
         Vector3 newMousePosition = Camera.main.ScreenToWorldPoint(eventData.position);
         newMousePosition.z = 0;
-        transform.position += (newMousePosition - _previousMousePosition);
-        _previousMousePosition = newMousePosition;
+         //transform.position += (newMousePosition - _previousMousePosition);
+         transform.position = newMousePosition;
+        //_previousMousePosition = newMousePosition;
 
         if (_childLink == null)
             return;
@@ -64,7 +65,7 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
             _childLink.snappedTo = parent;
             _childLink.snappedTo.snappedTo = _childLink;
             AttachmentLine();
-            rotationPrevious();
+            //rotationPreview();
             return;
         }
         if (gameObject.GetComponent<LineRenderer>() != null)
@@ -73,9 +74,10 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
         }
     }
 
-    public void rotationPrevious()
+    public void rotationPreview()
     {
-        transform.rotation = _childLink.snappedTo.transform.rotation;
+        Quaternion rot = Quaternion.FromToRotation(_childLink.snappedTo.transform.up, _childLink.transform.up);
+        transform.rotation *= rot;
     }
 
     public void AttachmentLine()
@@ -97,9 +99,10 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
         _InfoLine.enabled = false;
         if (_childLink.snappedTo == null)
             return;
+        rotationPreview();
+        transform.position -= _childLink.transform.position;
+        transform.position += _childLink.snappedTo.transform.position;
         transform.SetParent(_childLink.snappedTo.transform);
-        transform.position = _childLink.snappedTo.transform.position;
-        transform.rotation = _childLink.snappedTo.transform.rotation;
     }
 
     public void OnBeginDrag(PointerEventData eventData)

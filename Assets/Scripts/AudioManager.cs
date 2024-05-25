@@ -64,7 +64,6 @@ public class AudioManager : MonoBehaviour
 		{
 			currentFadeInDuration += Time.deltaTime;
 			volumeIn = currentFadeInDuration / fadeInDuration;
-			Debug.Log($"{Time.deltaTime}, {currentFadeInDuration}, {fadeInDuration}, {volumeIn}");
 			foreach (var source in sources)
 			{
 				source.volume = Mathf.Max(source.volume, volumeIn);
