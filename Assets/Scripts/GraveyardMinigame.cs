@@ -363,7 +363,7 @@ public class GraveyardMinigame : MonoBehaviour
 		{
 			diggableLimbs.Remove(limb);
 			GameManager.instance.AddLimb(limb.inventoryLimbName);
-			limb.GetComponent<SpriteRenderer>().sortingOrder = 50;
+			limb.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 50;
 			currentLimbsToAnimate.Add(limb);
 			limb.digOutAnimationStartPosition = limb.transform.position;
 			currentLimbCurveDuration = 0f;
