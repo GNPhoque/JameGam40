@@ -1,5 +1,7 @@
+using AYellowpaper.SerializedCollections;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -11,10 +13,15 @@ public class GameManager : MonoBehaviour
 	[SerializeField] GraveyardMinigame graveyardMinigame;
 	[SerializeField] Inventory inventory;
 	[SerializeField] Inventory startingInventory;
+	[SerializeField] SerializedDictionary<Shovel, bool> shovels;
+	[SerializeField] SerializedDictionary<Shovel, bool> startingShovels;
+	public int money;
 
 	//Game state
 	public bool isPaused;
 	public bool isMinigameOpened;
+
+	[SerializeField] bool resetshovels;
 
 	public bool canChangeRoom { get => !isPaused && !isMinigameOpened; }
 
@@ -26,6 +33,19 @@ public class GameManager : MonoBehaviour
 		GraveyardMinigame.OnEnergyValueChanged += uiManager.UpdateUraveyardEnergyText;
 		Grave.OnGraveClicked += OpenGraveyardMinigame;
 		inventory.SetInventory(startingInventory);
+		if (resetshovels)
+		{
+			ResetShovels();
+		}
+	}
+
+	private void ResetShovels()
+	{
+		shovels.Clear();
+		foreach (var item in startingShovels)
+		{
+			shovels.Add(item.Key, item.Value);
+		}
 	}
 
 	private void OnDestroy()
@@ -57,5 +77,10 @@ public class GameManager : MonoBehaviour
 	public bool TakeLimb(string limb, int qty = 1)
 	{
 		return inventory.TakeLimb(limb, qty);
+	}
+
+	public void UnlockShovel(Shovel shovel)
+	{
+		shovels[shovel] = true;
 	}
 }

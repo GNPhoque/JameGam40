@@ -390,8 +390,26 @@ MonoBehaviour:
   graveyardMinigame: {fileID: 0}
   inventory: {fileID: 11400000, guid: 473bbb80b049a77419f90b84e9286580, type: 2}
   startingInventory: {fileID: 11400000, guid: beb759011e62b434393c56d4b0a7b5cd, type: 2}
+  shovels:
+    _serializedList:
+    - Key: {fileID: 11400000, guid: a5b21ed631c3ee94d8c2fa42e37a0658, type: 2}
+      Value: 0
+    - Key: {fileID: 11400000, guid: 5d7e118bd9f2bab47965b85f00d31a17, type: 2}
+      Value: 0
+    - Key: {fileID: 11400000, guid: 46481e681dca6664c9c5661e1d44425e, type: 2}
+      Value: 0
+  startingShovels:
+    _serializedList:
+    - Key: {fileID: 11400000, guid: a5b21ed631c3ee94d8c2fa42e37a0658, type: 2}
+      Value: 0
+    - Key: {fileID: 11400000, guid: 5d7e118bd9f2bab47965b85f00d31a17, type: 2}
+      Value: 0
+    - Key: {fileID: 11400000, guid: 46481e681dca6664c9c5661e1d44425e, type: 2}
+      Value: 0
+  money: 0
   isPaused: 0
   isMinigameOpened: 0
+  resetshovels: 0
 --- !u!114 &6193704730932846740
 MonoBehaviour:
   m_ObjectHideFlags: 0
