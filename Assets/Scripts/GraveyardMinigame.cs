@@ -33,6 +33,7 @@ public class GraveyardMinigame : MonoBehaviour
 	[SerializeField] bool DEBUG_HideGrid;
 
 	[Header("Animation")]
+	[Header("Drop In")]
 	[SerializeField] AnimationCurve dropInAnimationCurve;
 	[SerializeField] float dropInAnimationOffset;
 	[SerializeField] float dropInAnimationMult;
@@ -40,6 +41,7 @@ public class GraveyardMinigame : MonoBehaviour
 	[SerializeField] float currentDropInAnimationDuration;
 	[SerializeField] bool dropInAnimating;
 
+	[Header("Drop Out")]
 	[SerializeField] AnimationCurve dropOutAnimationCurve;
 	[SerializeField] float dropOutAnimationOffset;
 	[SerializeField] float dropOutAnimationMult;
@@ -47,8 +49,7 @@ public class GraveyardMinigame : MonoBehaviour
 	[SerializeField] float currentDropOutAnimationDuration;
 	[SerializeField] bool dropOutAnimating;
 
-	DiggableLimb currentLimbToAnimate;
-	Vector2 currentLimbToAnimateStartPosition;
+	[Header("Limb Curve")]
 	[SerializeField] float limbCurveDuration;
 	[SerializeField] float currentLimbCurveDuration;
 	[SerializeField] Vector2 limbCurveMiddle;
@@ -57,6 +58,7 @@ public class GraveyardMinigame : MonoBehaviour
 	[SerializeField] bool waitForEndOfCurveToDropOut;
 
 
+	List<DiggableLimb> currentLimbsToAnimate = new List<DiggableLimb>();
 	List<DiggableLimb> diggableLimbs = new List<DiggableLimb>();
 	List<DiggableLimb> diggableBonus = new List<DiggableLimb>();
 	GraveyardMinigameCell[,] cells = new GraveyardMinigameCell[0, 0];
@@ -71,7 +73,6 @@ public class GraveyardMinigame : MonoBehaviour
 			OnEnergyValueChanged?.Invoke(value);
 		}
 	}
-
 
 
 	private void Start()
@@ -106,19 +107,25 @@ public class GraveyardMinigame : MonoBehaviour
 
 		if (limbCurveAnimating)
 		{
-			currentLimbCurveDuration += Time.deltaTime;
-			currentLimbToAnimate.transform.position = LimbAnimationBezierQuadratic(currentLimbCurveDuration / limbCurveDuration);
-			if (currentLimbCurveDuration > limbCurveDuration)
+			foreach (DiggableLimb limb in currentLimbsToAnimate)
 			{
-				limbCurveAnimating = false;
-				if (waitForEndOfCurveToDropOut)
+				currentLimbCurveDuration += Time.deltaTime;
+				limb.transform.position = LimbAnimationBezierQuadratic(currentLimbCurveDuration / limbCurveDuration, limb.digOutAnimationStartPosition); //update limb position
+
+				if (currentLimbCurveDuration > limbCurveDuration)
 				{
-					waitForEndOfCurveToDropOut = false;
-					dropOutAnimating = true;
-				}
-				currentLimbToAnimate.gameObject.SetActive(false);
-				if (diggableLimbs.Count == 0) GameManager.instance.CloseGraveyardMinigame();
+					limb.gameObject.SetActive(false);
+					if (diggableLimbs.Count == 0) GameManager.instance.CloseGraveyardMinigame();
+					
+					limbCurveAnimating = false;
+					if (waitForEndOfCurveToDropOut)
+					{
+						waitForEndOfCurveToDropOut = false;
+						dropOutAnimating = true;
+					}
+				} 
 			}
+			if (!limbCurveAnimating) currentLimbsToAnimate.Clear();
 		}
 	}
 
@@ -359,19 +366,19 @@ public class GraveyardMinigame : MonoBehaviour
 			diggableLimbs.Remove(limb);
 			GameManager.instance.AddLimb(limb.inventoryLimbName);
 			limb.GetComponent<SpriteRenderer>().sortingOrder = 50;
-			currentLimbToAnimate = limb;
-			currentLimbToAnimateStartPosition = limb.transform.position;
+			currentLimbsToAnimate.Add(limb);
+			limb.digOutAnimationStartPosition = limb.transform.position;
 			currentLimbCurveDuration = 0f;
 			limbCurveAnimating = true;
 		}
 	}
 
-	Vector2 LimbAnimationBezierQuadratic(float t)
+	Vector2 LimbAnimationBezierQuadratic(float t, Vector2 startPosition)
 	{
 		float u = 1 - t;
 		float tt = t * t;
 		float uu = u * u;
-		Vector2 ret = uu * currentLimbToAnimateStartPosition;
+		Vector2 ret = uu * startPosition;
 		ret += 2 * u * t * limbCurveMiddle;
 		ret += tt * limbCurveEnd;
 

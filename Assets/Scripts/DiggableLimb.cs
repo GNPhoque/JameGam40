@@ -10,4 +10,5 @@ public class DiggableLimb : MonoBehaviour
 
 	public List<Vector2Int> coveredPositionsSetup;
 	public List<Vector2Int> coveredPositions;
+	public Vector2 digOutAnimationStartPosition;
 }
