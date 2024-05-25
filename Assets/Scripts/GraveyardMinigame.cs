@@ -25,8 +25,6 @@ public class GraveyardMinigame : MonoBehaviour
 	[SerializeField] int maxBonusTryPosition;
 	[SerializeField] int startEnergy;
 	[SerializeField] int _currentEnergy;
-	[SerializeField] int cellWidth;
-	[SerializeField] int cellHeight;
 	[SerializeField] int gridX;
 	[SerializeField] int gridY;
 	[SerializeField] bool DEBUG_generateGridInEditMode;
@@ -200,11 +198,11 @@ public class GraveyardMinigame : MonoBehaviour
 		//Spawn new cells
 		for (int x = 0; x < gridX; x++)
 		{
-			float xPos = -(gridX / 2) + x;
+			float xPos = (-(gridX / 2) + x) * cellPrefab.transform.localScale.x;
 			if (gridX % 2 == 0) xPos += .5f;
 			for (int y = 0; y < gridY; y++)
 			{
-				float yPos = -(gridY / 2) + y;
+				float yPos = (-(gridY / 2) + y) * cellPrefab.transform.localScale.y;
 				if (gridY % 2 == 0) yPos += .5f;
 				GraveyardMinigameCell cell = Instantiate(cellPrefab, new Vector3(xPos, yPos, 0) + grid.position, Quaternion.identity, grid);
 				cell.position = new Vector2Int(x, y);
