@@ -47,6 +47,7 @@ MonoBehaviour:
   snapType: 0
   snappedTo: {fileID: 0}
   sewed: 0
+  snapManager: {fileID: 0}
 --- !u!1 &4272132511189944720
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,9 +98,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PartAttachments:
   - {fileID: 375555084497500876}
+  - {fileID: 8965616416655290015}
   defaultParent: {fileID: 0}
-  bodyElements: 
+  bodyElements:
+    _serializedList: []
   partType: 1
+  inventoryID: 
 --- !u!61 &9175142759354817188
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -276,3 +280,4 @@ MonoBehaviour:
   snapType: 1
   snappedTo: {fileID: 0}
   sewed: 0
+  snapManager: {fileID: 0}
