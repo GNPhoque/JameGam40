@@ -16,6 +16,8 @@ public class SnapPositions : MonoBehaviour
     public SnapPositions snappedTo = null;
     public bool sewed = false;
 
+    public SnapingParts snapManager;
+
     public void sew()
     {
         if (!snappedTo)

@@ -275,3 +275,5 @@ MonoBehaviour:
   - {fileID: 8581572661215641399}
   - {fileID: 3836411034629722009}
   defaultParent: {fileID: 0}
+  bodyElements: 
+  partType: 4

@@ -105,6 +105,8 @@ MonoBehaviour:
   - {fileID: 4417495480699417431}
   - {fileID: 3618861032235662410}
   defaultParent: {fileID: 0}
+  bodyElements: 
+  partType: 32
 --- !u!61 &4650922233593977251
 BoxCollider2D:
   m_ObjectHideFlags: 0

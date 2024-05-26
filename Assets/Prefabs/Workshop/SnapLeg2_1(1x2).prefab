@@ -97,6 +97,8 @@ MonoBehaviour:
   - {fileID: 6605442947879627811}
   - {fileID: 4056108275888557734}
   defaultParent: {fileID: 0}
+  bodyElements: 
+  partType: 4
 --- !u!1 &5700696257720937934
 GameObject:
   m_ObjectHideFlags: 0

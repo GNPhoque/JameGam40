@@ -226,3 +226,5 @@ MonoBehaviour:
   PartAttachments:
   - {fileID: 7040333400358460052}
   defaultParent: {fileID: 0}
+  bodyElements: 
+  partType: 8

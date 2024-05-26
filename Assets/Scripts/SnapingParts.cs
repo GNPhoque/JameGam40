@@ -1,14 +1,16 @@
+using AYellowpaper.SerializedCollections;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
 
 public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerDownHandler
 {
     public static float snapDistance = 1f;
     public List<SnapPositions> PartAttachments;
     public Transform defaultParent;
+    [SerializeField] public SerializedDictionary<BodyParts, int> bodyElements;
+    public BodyParts partType;
 
     private LineRenderer _InfoLine;
 
@@ -21,6 +23,8 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
         if (_InfoLine == null)
             _InfoLine = gameObject.AddComponent<LineRenderer>();
         populateChild();
+        initBodyPartDict();
+        FillBodypartToDict(partType);
     }
 
     private void populateChild()
@@ -29,6 +33,7 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
 
         foreach (SnapPositions part in PartAttachments)
         {
+            part.snapManager = this;
             if (part.snapType == EsnapType.child)
             {
                 if (_childLink != null)
@@ -36,6 +41,40 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
                 _childLink = part;
             }
         }
+    }
+
+    private void initBodyPartDict()
+    {
+        // bodyElements = new SerializedDictionary<int, int>();
+        bodyElements.Clear();
+        for (int i = 1; System.Enum.IsDefined(typeof(BodyParts), (BodyParts)i); i *= 2)
+        {
+            bodyElements.Add((BodyParts)i, 0);
+        }
+    }
+
+    private void FillBodypartToDict(BodyParts parts)
+    {
+        for (int i = 1; System.Enum.IsDefined(typeof(BodyParts), (BodyParts)i); i *= 2)
+        {
+            if (((BodyParts)i & parts) != 0)
+                bodyElements[(BodyParts)i] += 1;
+        }
+    }
+
+    public void addBodyList(Dictionary<BodyParts, int> toAdd)
+    {
+        foreach (BodyParts key in toAdd.Keys)
+            bodyElements[key] += toAdd[key];
+        if (_childLink != null)
+            _childLink.snappedTo.snapManager.addBodyList(toAdd);
+    }
+    public void removeBodyList(Dictionary<BodyParts, int> toRemove)
+    {
+        foreach (BodyParts key in toRemove.Keys)
+            bodyElements[key] -= toRemove[key];
+        if (_childLink != null)
+            _childLink.snappedTo.snapManager.removeBodyList(toRemove);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -55,17 +94,14 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
         SnapPositions parent = FindNeerestAttach();
         if (_childLink.snappedTo != null)
         {
-            Debug.Log("Reset snap");
             _childLink.snappedTo.snappedTo = null;
             _childLink.snappedTo = null;
         }
         if (parent != null)
         {
-            Debug.Log("Snap");
             _childLink.snappedTo = parent;
             _childLink.snappedTo.snappedTo = _childLink;
             AttachmentLine();
-            //rotationPreview();
             return;
         }
         if (gameObject.GetComponent<LineRenderer>() != null)
@@ -103,13 +139,15 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
         transform.position -= _childLink.transform.position;
         transform.position += _childLink.snappedTo.transform.position;
         transform.SetParent(_childLink.snappedTo.transform);
+        _childLink.snappedTo.snapManager.addBodyList(bodyElements);
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("OnBeginDrag");
         if (_childLink != null && _childLink.sewed)
             return;
+        if (_childLink.snappedTo != null)
+            _childLink.snappedTo.snapManager.removeBodyList(bodyElements);
         transform.SetParent(defaultParent);
         _previousMousePosition = Camera.main.ScreenToWorldPoint(eventData.position);
         _previousMousePosition.z = 0;

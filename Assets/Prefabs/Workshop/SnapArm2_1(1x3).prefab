@@ -98,6 +98,8 @@ MonoBehaviour:
   PartAttachments:
   - {fileID: 375555084497500876}
   defaultParent: {fileID: 0}
+  bodyElements: 
+  partType: 1
 --- !u!61 &9175142759354817188
 BoxCollider2D:
   m_ObjectHideFlags: 0

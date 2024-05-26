@@ -95,6 +95,8 @@ MonoBehaviour:
   PartAttachments:
   - {fileID: 6750787636234063884}
   defaultParent: {fileID: 0}
+  bodyElements: 
+  partType: 2
 --- !u!1 &2519449677497746316
 GameObject:
   m_ObjectHideFlags: 0
