@@ -1,10 +1,15 @@
 using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
+	public static event Action OnShopCameraFocused;
+	public static event Action OnWorkshopCameraFocused;
+	public static event Action OnGraveyardCameraFocused;
+
 	[SerializeField] bool focusWorkshopOnStart;
 	[SerializeField] CinemachineVirtualCamera camShop;
 	[SerializeField] CinemachineVirtualCamera camWorkshop;
@@ -36,6 +41,7 @@ public class CameraMovement : MonoBehaviour
 		UnfocusCameras();
 		camShop.Priority = 10;
 		AudioManager.instance.CrossfadeToShop();
+		OnShopCameraFocused?.Invoke();
 	}
 
 	public void FocusOnWorkshop()
@@ -43,6 +49,7 @@ public class CameraMovement : MonoBehaviour
 		UnfocusCameras();
 		camWorkshop.Priority = 10;
 		AudioManager.instance.CrossfadeToWorkshop();
+		OnWorkshopCameraFocused?.Invoke();
 	}
 
 	public void FocusOnGraveyard()
@@ -50,5 +57,6 @@ public class CameraMovement : MonoBehaviour
 		UnfocusCameras();
 		camGraveyard.Priority = 10;
 		AudioManager.instance.CrossfadeToGraveyard();
+		OnGraveyardCameraFocused?.Invoke();
 	}
 }
