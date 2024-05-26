@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
 	public event Action<int> onTeethValueChanged;
 	public event Action<int> onPentaclesValueChanged;
 
+	[SerializeField] Tutorial tutorial;
+	[SerializeField] bool showTutorial;
 	[SerializeField] UIManager uiManager;
 	//[SerializeField] BodyBuildingMinigame bodyBuildingMinigame;
 	[SerializeField] public GraveyardMinigame graveyardMinigame;
@@ -60,6 +62,8 @@ public class GameManager : MonoBehaviour
 		{
 			ResetShovels();
 		}
+
+		if (showTutorial) tutorial.gameObject.SetActive(true);
 	}
 
 	private void ResetShovels()

@@ -1,4 +1,5 @@
 using AYellowpaper.SerializedCollections;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,8 @@ using UnityEngine;
 
 public class QuestBoard : MonoBehaviour
 {
+	public static Action OnQuestBoardOpen;
+
 	[SerializeField] TextMeshProUGUI teethText;
 	[SerializeField] TextMeshProUGUI pentacleText;
 
@@ -40,6 +43,7 @@ public class QuestBoard : MonoBehaviour
 		//	questNotes.Add(note);
 		//}
 
+		OnQuestBoardOpen?.Invoke();
 		CheckCompletedQuests();
 	}
 

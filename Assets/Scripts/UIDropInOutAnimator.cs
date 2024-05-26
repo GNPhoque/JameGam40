@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UIDropInOutAnimator : MonoBehaviour
 {
+	public static Action OnUIClosed;
+
 	[Header("Drop In")]
 	[SerializeField] AnimationCurve dropInAnimationCurve;
 	[SerializeField] float dropInAnimationOffset;
@@ -49,6 +52,7 @@ public class UIDropInOutAnimator : MonoBehaviour
 		currentDropOutAnimationDuration = 0f;
 		dropInAnimating = false;
 		dropOutAnimating = true;
+		OnUIClosed?.Invoke();
 	}
 
 	private void Update()

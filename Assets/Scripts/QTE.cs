@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 // QTE game is composed by N series of sequences composed by QTESequenceSize keys
 public class QTE : MonoBehaviour
 {
+    public static Action OnBodyMended;
 
     public int QTESequenceSize = 5;
     public int QTESequenceTime = 5;
@@ -93,6 +95,7 @@ public class QTE : MonoBehaviour
                 parts.snapManager.transform.position = new Vector3(-1000 - 10 * GameManager.instance.BuildedBodys.Count, 0, 0);
             }
         }
+        OnBodyMended?.Invoke();
     }
 
     public void StartGame()
@@ -145,7 +148,7 @@ public class QTE : MonoBehaviour
             List<BGKey> keyList = new List<BGKey>();
             for (int j = 0; j < QTESequenceSize; j++)
             {
-                KeyCode drawed = keycodes[Random.Range(0, keycodes.Count)];
+                KeyCode drawed = keycodes[UnityEngine.Random.Range(0, keycodes.Count)];
                 GameObject newKey = Instantiate(BGKey, transform);
                 BGKey keyScript = newKey.GetComponent<BGKey>();
                 keyScript.ActivateWithKey(drawed, transform.position + new Vector3(3 + (j * 1.25f), 0, 0));

@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-	public static event Action OnShopCameraFocused;
-	public static event Action OnWorkshopCameraFocused;
-	public static event Action OnGraveyardCameraFocused;
+	public static Action OnShopCameraFocused;
+	public static Action OnWorkshopCameraFocused;
+	public static Action OnGraveyardCameraFocused;
 
 	[SerializeField] bool focusWorkshopOnStart;
 	[SerializeField] CinemachineVirtualCamera camShop;

@@ -11,6 +11,7 @@ using Random = UnityEngine.Random;
 public class GraveyardMinigame : MonoBehaviour
 {
 	public static event Action<int> OnEnergyValueChanged;
+	public static Action OnGraveyardMinigameOpen;
 
 	[SerializeField] GameObject graveyardMinigameFrame;
 	[SerializeField] GraveyardMinigameCell cellPrefab;
@@ -96,7 +97,11 @@ public class GraveyardMinigame : MonoBehaviour
 		{
 			currentDropInAnimationDuration += Time.deltaTime;
 			transform.position = new Vector3(18, dropInAnimationCurve.Evaluate(currentDropInAnimationDuration / dropInAnimationDuration) * dropInAnimationMult + dropInAnimationOffset);
-			if (currentDropInAnimationDuration > dropInAnimationDuration) dropInAnimating = false;
+			if (currentDropInAnimationDuration > dropInAnimationDuration)
+			{
+				dropInAnimating = false;
+				OnGraveyardMinigameOpen?.Invoke();
+			}
 		}
 
 		if (dropOutAnimating)

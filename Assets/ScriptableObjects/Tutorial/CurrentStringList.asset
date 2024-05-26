@@ -10,8 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 434324ace32e2e1478be3b0571eccd52, type: 3}
-  m_Name: Tuto_01
+  m_Name: CurrentStringList
   m_EditorClassIdentifier: 
-  list:
-  - 'Your first zombie requires 1 head, 1 torso and 1 arm '
-  - 'Make sure to remember it and click BACK to close the board '
+  list: []
