@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class BGKey : MonoBehaviour
@@ -11,21 +12,20 @@ public class BGKey : MonoBehaviour
     public float shakeDisplacementStrength = 0.05f;
     // the number of displacement in shakeTime
     public int shakeNumber = 10;
+    public Sprite SuccessAsset;
+    public Image bottleImage;
 
     public TextMeshProUGUI KeyText;
-    private SpriteRenderer _bg;
 
     private bool _shakeStarted = false;
     public KeyCode Key;
 
     private void Awake()
     {
-        _bg = GetComponent<SpriteRenderer>();
     }
 
     public void ActivateWithKey(KeyCode key, Vector3 position)
     {
-        _bg.color = Color.gray;
         KeyText.text = key.ToString();
         transform.position = position;
         Key = key;
@@ -37,7 +37,7 @@ public class BGKey : MonoBehaviour
 
     public void validateKey()
     {
-        _bg.color = Color.green;
+        bottleImage.sprite = SuccessAsset;
     }
 
     public void startShake()

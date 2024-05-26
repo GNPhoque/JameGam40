@@ -20,6 +20,7 @@ public class QTE : MonoBehaviour
     private int _currentSequence = 0;
     private int _currentSequenceKey = 0;
 
+
     private bool _gameStarted = false;
     private float _sequenceRemainingTime = 0.0f;
 
@@ -131,7 +132,7 @@ public class QTE : MonoBehaviour
                 KeyCode drawed = keycodes[Random.Range(0, keycodes.Count)];
                 GameObject newKey = Instantiate(BGKey, transform);
                 BGKey keyScript = newKey.GetComponent<BGKey>();
-                keyScript.ActivateWithKey(drawed, transform.position + new Vector3(j * 1.25f, 0, 0));
+                keyScript.ActivateWithKey(drawed, transform.position + new Vector3(3 + (j * 1.25f), 0, 0));
                 keyList.Add(keyScript);
                 newKey.SetActive(false);
             }
