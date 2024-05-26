@@ -10,8 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 434324ace32e2e1478be3b0571eccd52, type: 3}
-  m_Name: Tuto_00
+  m_Name: Tuto_02
   m_EditorClassIdentifier: 
   list:
-  - 'Hello necromancer! You have a quest on the board. '
-  - 'Click the board to see what zombie is asked '
+  - 'Press "2" to go to your workshop and check your components. '

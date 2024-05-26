@@ -10,6 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 434324ace32e2e1478be3b0571eccd52, type: 3}
-  m_Name: Tuto_00 2
+  m_Name: Tuto_07
   m_EditorClassIdentifier: 
-  list: []
+  list:
+  - 'Great you built ... something '
+  - 'Well, as long as the customers are happy! '
+  - 'Press "1" to go back to the shop '

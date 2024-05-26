@@ -2926,6 +2926,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5813512392009872357}
+  - component: {fileID: 6982705720345485917}
   m_Layer: 5
   m_Name: TUTORIAL
   m_TagString: Untagged
@@ -2954,6 +2955,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6982705720345485917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454232556324227127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1abb061d56f59794d99cf4f5029a4e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  list:
+  - {fileID: 11400000, guid: 1fa20932634951347ae9a654adcc4524, type: 2}
+  - {fileID: 11400000, guid: e673fd981b2de4b4d8d6b2876603fe8d, type: 2}
+  - {fileID: 11400000, guid: d704f3439f973134f84e2e4cb779a4ae, type: 2}
+  - {fileID: 11400000, guid: 58b4c5dda88278f4a9cc2ca839971df0, type: 2}
+  - {fileID: 11400000, guid: d986268401b980d49899fb7ccd521df5, type: 2}
+  - {fileID: 11400000, guid: bcb16d51b62ef5249957f57b027efe91, type: 2}
+  - {fileID: 11400000, guid: d81de041312766d4aad82e6bd4ce0489, type: 2}
+  - {fileID: 11400000, guid: 8b30ce4b112dea24a8d361321b546795, type: 2}
+  - {fileID: 11400000, guid: ca85be03aaa54c247ae7207996d4d53f, type: 2}
 --- !u!1 &1548121436713809033
 GameObject:
   m_ObjectHideFlags: 0

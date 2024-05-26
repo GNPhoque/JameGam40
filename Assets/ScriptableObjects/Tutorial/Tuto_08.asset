@@ -10,6 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 434324ace32e2e1478be3b0571eccd52, type: 3}
-  m_Name: Tuto_00 1
+  m_Name: Tuto_08
   m_EditorClassIdentifier: 
-  list: []
+  list:
+  - 'Now that you have mended this zombie, go collcect your reward! '
+  - 'You can also click the catalog to buy new shovels. '
+  - 'Your end goal is to get the most pentacles by the end of the 4th quest '
+  - Good luck!
