@@ -66,14 +66,14 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
     {
         foreach (BodyParts key in toAdd.Keys)
             bodyElements[key] += toAdd[key];
-        if (_childLink != null)
+        if (_childLink != null && _childLink.snappedTo != null)
             _childLink.snappedTo.snapManager.addBodyList(toAdd);
     }
     public void removeBodyList(Dictionary<BodyParts, int> toRemove)
     {
         foreach (BodyParts key in toRemove.Keys)
             bodyElements[key] -= toRemove[key];
-        if (_childLink != null)
+        if (_childLink != null && _childLink.snappedTo != null)
             _childLink.snappedTo.snapManager.removeBodyList(toRemove);
     }
 
@@ -146,7 +146,7 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
     {
         if (_childLink != null && _childLink.sewed)
             return;
-        if (_childLink.snappedTo != null)
+        if (_childLink != null && _childLink.snappedTo != null)
             _childLink.snappedTo.snapManager.removeBodyList(bodyElements);
         transform.SetParent(defaultParent);
         _previousMousePosition = Camera.main.ScreenToWorldPoint(eventData.position);
