@@ -675,7 +675,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2072724554270517732, guid: 515193edf46d2154e84125ff628bc511, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000015258789
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2155059721577951012, guid: 515193edf46d2154e84125ff628bc511, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3357,6 +3357,10 @@ PrefabInstance:
       propertyPath: endGame
       value: 
       objectReference: {fileID: 1645197372}
+    - target: {fileID: 7587520013009322738, guid: a979cb74b5e07e246aeb8d0da4cfa5e2, type: 3}
+      propertyPath: endGameText
+      value: 
+      objectReference: {fileID: 1009336361}
     - target: {fileID: 7587520013009322738, guid: a979cb74b5e07e246aeb8d0da4cfa5e2, type: 3}
       propertyPath: questLists.Array.size
       value: 3
