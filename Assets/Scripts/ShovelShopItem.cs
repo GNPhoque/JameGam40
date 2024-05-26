@@ -19,9 +19,9 @@ public class ShovelShopItem : MonoBehaviour, IPointerClickHandler
 	{
 		if (soldout) return;
 
-		if (GameManager.instance.money >= cost)
+		if (GameManager.instance.teeth >= cost)
 		{
-			GameManager.instance.money -= cost;
+			GameManager.instance.teeth -= cost;
 			GameManager.instance.UnlockShovel(shovel);
 			soldout = true;
 		}

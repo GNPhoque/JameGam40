@@ -406,7 +406,6 @@ MonoBehaviour:
       Value: 0
     - Key: {fileID: 11400000, guid: 46481e681dca6664c9c5661e1d44425e, type: 2}
       Value: 0
-  money: 0
   isPaused: 0
   isMinigameOpened: 0
   resetshovels: 0

@@ -1,4 +1,5 @@
 using AYellowpaper.SerializedCollections;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 	public static GameManager instance;
+	public event Action<int> onTeethValueChanged;
+	public event Action<int> onPentaclesValueChanged;
 
 	[SerializeField] UIManager uiManager;
 	//[SerializeField] BodyBuildingMinigame bodyBuildingMinigame;
@@ -16,7 +19,8 @@ public class GameManager : MonoBehaviour
 	[SerializeField] SerializedDictionary<Shovel, bool> shovels;
 	[SerializeField] SerializedDictionary<Shovel, bool> startingShovels;
 	public List<SnapingParts> BuildedBodys { get; private set;}
-	public int money;
+	private int _teeth;
+	private int _pentacles;
 
 	//Game state
 	public bool isPaused;
@@ -25,6 +29,23 @@ public class GameManager : MonoBehaviour
 	[SerializeField] bool resetshovels;
 
 	public bool canChangeRoom { get => !isPaused && !isMinigameOpened; }
+	public int teeth
+	{
+		get => _teeth; 
+		set 
+		{ 
+			_teeth = value; 
+			onTeethValueChanged?.Invoke(value); 
+		}
+	}
+	public int pentacles { 
+		get => _pentacles; 
+		set 
+		{
+			_pentacles = value; 
+			onPentaclesValueChanged?.Invoke(value); 
+		} 
+	}
 
 	private void Awake()
 	{

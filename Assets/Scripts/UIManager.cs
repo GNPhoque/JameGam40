@@ -5,6 +5,7 @@ public class UIManager : MonoBehaviour
 {
 	[SerializeField] TextMeshProUGUI graveyardEnergyText;
 	[SerializeField] GameObject shopUI;
+	[SerializeField] GameObject questsUI;
 
 	public void ShowGraveyardEnergy()
 	{
@@ -29,5 +30,15 @@ public class UIManager : MonoBehaviour
 	public void HideShopUI()
 	{
 		shopUI.GetComponent<UIDropInOutAnimator>().DropOut();
+	}
+
+	public void ShowQuests()
+	{
+		questsUI.GetComponent<UIDropInOutAnimator>().DropIn();
+	}
+
+	public void HideQuests()
+	{
+		questsUI.GetComponent<UIDropInOutAnimator>().DropOut();
 	}
 }
