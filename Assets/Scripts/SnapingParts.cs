@@ -13,7 +13,9 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
     public BodyParts partType;
 
     public bool IsRoot {
-        get { return _childLink == null; }
+        get {
+            return _childLink == null || _childLink.snappedTo == null; 
+        }
     }
 
     private LineRenderer _InfoLine;
