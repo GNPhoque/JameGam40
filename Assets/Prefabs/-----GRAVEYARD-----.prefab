@@ -208,7 +208,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.28436, y: 2.2411065, z: 1}
+  m_LocalScale: {x: 0.94735336, y: 0.9282773, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7529588855511265517}
@@ -254,7 +254,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -10
-  m_Sprite: {fileID: 21300000, guid: f3270a7d29cdc654485f9bae9149c81c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 55e652ca53b373a44bb383d8d9980335, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -963,6 +963,8 @@ MonoBehaviour:
   weightedDiggableLimbPrefabs:
     _serializedList: []
   diggableBonusPrefab: {fileID: 5740419195591950782, guid: f3ee7944ba6f5104d8e8d54607d6cf1a, type: 3}
+  maxGravesPerDay: 0
+  gravesOpenedThisDay: 0
   limbsCount: 5
   bonusCount: 10
   maxLimbTryPosition: 100
