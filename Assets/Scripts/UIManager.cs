@@ -23,11 +23,11 @@ public class UIManager : MonoBehaviour
 
 	public void ShowShopUI()
 	{
-		shopUI.gameObject.SetActive(true);
+		shopUI.GetComponent<UIDropInOutAnimator>().DropIn();
 	}
 
 	public void HideShopUI()
 	{
-		shopUI.gameObject.SetActive(false);
+		shopUI.GetComponent<UIDropInOutAnimator>().DropOut();
 	}
 }
