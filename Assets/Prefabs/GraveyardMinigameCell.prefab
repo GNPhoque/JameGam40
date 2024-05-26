@@ -98,6 +98,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b8a801751ed35b4e9ab455f79755360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grassSprites:
+    _serializedList:
+    - Key: {fileID: 21300000, guid: 6ca6d22297ff7f143b2f3f19a4309cb1, type: 3}
+      Value: {fileID: 21300000, guid: ea379e460155eb6429d9983b93dd1fc1, type: 3}
+    - Key: {fileID: 21300000, guid: 30597d6061afb204d8da7df901288682, type: 3}
+      Value: {fileID: 21300000, guid: c5523467cf9c4ab41818b007edbf7cbe, type: 3}
+    - Key: {fileID: 21300000, guid: 2b3244eb836fcc84d8d34b05d5a31470, type: 3}
+      Value: {fileID: 21300000, guid: f3a3935be51d72a42a4d60bff0553978, type: 3}
+    - Key: {fileID: 21300000, guid: ad57133e26663254aa5e5ee9c7c27792, type: 3}
+      Value: {fileID: 21300000, guid: f405e8d7d7afeb84ca99d253b9e9b5f7, type: 3}
+  upperDirtSprites:
+    _serializedList:
+    - Key: {fileID: 21300000, guid: 6c02ec9142278cb489649976db662f7a, type: 3}
+      Value: {fileID: 21300000, guid: c8644476e8dc8ad4891bcae1e20b2cf2, type: 3}
+    - Key: {fileID: 21300000, guid: 134bdd61cd0780240a7349509ab19dc6, type: 3}
+      Value: {fileID: 21300000, guid: 2c7a06bc2478ee94f8d47fffa90bfeb3, type: 3}
+    - Key: {fileID: 21300000, guid: 81ee89d9763dd48459fc39e68c5987cf, type: 3}
+      Value: {fileID: 21300000, guid: fc52930a7ee9610409b08769729f34ae, type: 3}
+    - Key: {fileID: 21300000, guid: e367ddcc9c04a884e9f91a95a4d4cf10, type: 3}
+      Value: {fileID: 21300000, guid: ddcb568ac53f20b4889bcccbf91160e8, type: 3}
+  lowerDirtSprites:
+    _serializedList:
+    - Key: {fileID: 21300000, guid: 8b5b36fbcd539374c8effa8b5798576d, type: 3}
+      Value: {fileID: 21300000, guid: cfacd18f1180fc0498a0345552a7f33f, type: 3}
+    - Key: {fileID: 21300000, guid: 5ed3ba6e2f0785e41b0d8d1a0031cce5, type: 3}
+      Value: {fileID: 21300000, guid: ce1e306644966da4b979d0a1db083617, type: 3}
+    - Key: {fileID: 21300000, guid: 2445942fdd2b4414c98acb15bd77f0e4, type: 3}
+      Value: {fileID: 21300000, guid: ccb478327e7b46e40a53ca278492ee0a, type: 3}
+    - Key: {fileID: 21300000, guid: 16f25ed845a13ae479dcf2fd826b6356, type: 3}
+      Value: {fileID: 21300000, guid: ffd434662e36f6e4d8b0457c8a070e74, type: 3}
   isRevealed: 0
   durability: 3
   incomingShovelDamage: 0

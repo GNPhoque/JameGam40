@@ -19,6 +19,8 @@ public class GraveyardMinigame : MonoBehaviour
 	//[SerializeField] DiggableLimb[] diggableLimbPrefabs;
 	[SerializeField] DiggableLimb diggableBonusPrefab;
 
+	[SerializeField] int maxGravesPerDay;
+	[SerializeField] int gravesOpenedThisDay;
 	[SerializeField] int limbsCount;
 	[SerializeField] int bonusCount;
 	[SerializeField] int maxLimbTryPosition;
@@ -145,7 +147,7 @@ public class GraveyardMinigame : MonoBehaviour
 	{
 		foreach (var cell in GetValidTargets(clicked))
 		{
-			cell.Highlight();
+			cell.ShowTarget();
 		}
 	}
 
@@ -153,7 +155,7 @@ public class GraveyardMinigame : MonoBehaviour
 	{
 		foreach (var cell in GetValidTargets(clicked))
 		{
-			cell.ShowDurability();
+			cell.HideTarget();
 		}
 	}
 

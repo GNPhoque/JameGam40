@@ -1,9 +1,10 @@
+using AYellowpaper.SerializedCollections;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Random = UnityEngine.Random;
 
 public class GraveyardMinigameCell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
@@ -12,11 +13,26 @@ public class GraveyardMinigameCell : MonoBehaviour, IPointerClickHandler, IPoint
 	public static Action<GraveyardMinigameCell> OnCellHoverOut;
 	public static Action<GraveyardMinigameCell> OnCellRevealed;
 
+	[SerializeField] SerializedDictionary<Sprite, Sprite> grassSprites;
+	[SerializeField] SerializedDictionary<Sprite, Sprite> upperDirtSprites;
+	[SerializeField] SerializedDictionary<Sprite, Sprite> lowerDirtSprites;
+
 	public bool isRevealed;
 	public int durability;
 	public int incomingShovelDamage;
 	public Vector2Int position;
 
+	SpriteRenderer spriteRenderer;
+	Sprite unselectedSprite;
+	Sprite selectedSprite;
+
+	bool isSelected;
+
+	private void Awake()
+	{
+		spriteRenderer = GetComponent<SpriteRenderer>();
+		UpdateSprite();
+	}
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
@@ -33,21 +49,46 @@ public class GraveyardMinigameCell : MonoBehaviour, IPointerClickHandler, IPoint
 		OnCellClicked?.Invoke(this);
 	}
 
+	public void UpdateSprite()
+	{
+		SerializedDictionary<Sprite, Sprite> pool;
+		switch (durability)
+		{
+			case 2:
+				pool = upperDirtSprites;
+				break;
+			case 1:
+				pool = lowerDirtSprites;
+				break;
+			default:
+				pool = grassSprites;
+				break;
+		}
+
+		KeyValuePair<Sprite, Sprite> pair = pool.ElementAt(Random.Range(0, pool.Count));
+		unselectedSprite = pair.Key;
+		selectedSprite = pair.Value;
+
+		spriteRenderer.sprite = isSelected ? selectedSprite : unselectedSprite;
+	}
+
 	public void DigUp(int amount = 1)
 	{
 		durability -= amount;
-		ShowDurability();
+		UpdateSprite();
 		if (durability <= 0) Reveal();
 	}
 
-	public void Highlight()
+	public void ShowTarget()
 	{
-		GetComponent<SpriteRenderer>().color = Color.green;
+		isSelected = true;
+		spriteRenderer.sprite = selectedSprite;
 	}
 
-	public void ShowDurability()
+	public void HideTarget()
 	{
-		GetComponent<SpriteRenderer>().color = durability < 3 ? Color.red : Color.white;
+		isSelected = false;
+		spriteRenderer.sprite = unselectedSprite;
 	}
 
 	void Reveal()
