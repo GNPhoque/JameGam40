@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField] UIManager uiManager;
 	//[SerializeField] BodyBuildingMinigame bodyBuildingMinigame;
-	[SerializeField] GraveyardMinigame graveyardMinigame;
+	[SerializeField] public GraveyardMinigame graveyardMinigame;
 	[SerializeField] Inventory inventory;
 	[SerializeField] Inventory startingInventory;
 	[SerializeField] SerializedDictionary<Shovel, bool> shovels;

@@ -15,7 +15,7 @@ public class GraveyardMinigame : MonoBehaviour
 	[SerializeField] GameObject graveyardMinigameFrame;
 	[SerializeField] GraveyardMinigameCell cellPrefab;
 	[SerializeField] Transform grid;
-	[SerializeField] Shovel currentShovel;
+	[SerializeField] public Shovel currentShovel;
 	[SerializeField] SerializedDictionary<DiggableLimb, int> weightedDiggableLimbPrefabs;
 	//[SerializeField] DiggableLimb[] diggableLimbPrefabs;
 	[SerializeField] DiggableLimb diggableBonusPrefab;
