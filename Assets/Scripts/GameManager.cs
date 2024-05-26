@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] Inventory startingInventory;
 	[SerializeField] SerializedDictionary<Shovel, bool> shovels;
 	[SerializeField] SerializedDictionary<Shovel, bool> startingShovels;
+	public List<SnapingParts> BuildedBodys { get; private set;}
 	public int money;
 
 	//Game state
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
 		if (instance) Destroy(instance.gameObject);
 
 		instance = this;
+		BuildedBodys = new List<SnapingParts>();
 		GraveyardMinigame.OnEnergyValueChanged += uiManager.UpdateUraveyardEnergyText;
 		Grave.OnGraveClicked += OpenGraveyardMinigame;
 		inventory.SetInventory(startingInventory);

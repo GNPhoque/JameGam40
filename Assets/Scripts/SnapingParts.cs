@@ -12,6 +12,10 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
     [SerializeField] public SerializedDictionary<BodyParts, int> bodyElements;
     public BodyParts partType;
 
+    public bool IsRoot {
+        get { return _childLink == null; }
+    }
+
     private LineRenderer _InfoLine;
 
     private SnapPositions _childLink;

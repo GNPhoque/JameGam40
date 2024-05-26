@@ -26,6 +26,8 @@ public class SnapPositions : MonoBehaviour
             return;
         sewed = true;
         snappedTo.sew();
+        if (snapType == EsnapType.parent)
+            parentSnapers.Remove(this);
     }
 
     private void Awake()

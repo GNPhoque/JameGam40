@@ -72,6 +72,7 @@ public class QTE : MonoBehaviour
             {
                 timer.SetActive(false);
                 _gameStarted = false;
+                FinalizeBodies();
                 return;
             }
             _currentSequence += 1;
@@ -80,6 +81,18 @@ public class QTE : MonoBehaviour
         }
         _currentSequenceKey += 1;
 
+    }
+
+    private void FinalizeBodies()
+    {
+        foreach (SnapPositions parts in _toSew)
+        {
+            if (parts.snapType == EsnapType.parent && parts.snapManager.IsRoot)
+            {
+                GameManager.instance.BuildedBodys.Add(parts.snapManager);
+                parts.snapManager.transform.position = new Vector3(-1000 - 10 * GameManager.instance.BuildedBodys.Count, 0, 0);
+            }
+        }
     }
 
     public void StartGame()
