@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -18,6 +19,8 @@ public class GraveyardMinigame : MonoBehaviour
 	[SerializeField] SerializedDictionary<DiggableLimb, int> weightedDiggableLimbPrefabs;
 	//[SerializeField] DiggableLimb[] diggableLimbPrefabs;
 	[SerializeField] DiggableLimb diggableBonusPrefab;
+	[SerializeField] SpriteRenderer energyBar;
+	[SerializeField] TMP_Text energyText;
 
 	[SerializeField] int maxGravesPerDay;
 	[SerializeField] int gravesOpenedThisDay;
@@ -71,6 +74,8 @@ public class GraveyardMinigame : MonoBehaviour
 		{
 			_currentEnergy = value;
 			OnEnergyValueChanged?.Invoke(value);
+			energyBar.size = new Vector2(1, value / (float)startEnergy);
+			energyText.text = value.ToString();
 		}
 	}
 
