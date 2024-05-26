@@ -19,6 +19,7 @@ public class BodyPartSpawner : MonoBehaviour, IPointerClickHandler
         GameObject newPart = Instantiate(PartReference, SpawnParent);
 
         newPart.GetComponent<SnapingParts>().defaultParent = SpawnParent;
+        newPart.GetComponent<SnapingParts>().inventoryID = partName;
 
         Debug.Log("Spawner Clicked");
     }

@@ -11,6 +11,7 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
     public Transform defaultParent;
     [SerializeField] public SerializedDictionary<BodyParts, int> bodyElements;
     public BodyParts partType;
+    public string inventoryID;
 
     public bool IsRoot {
         get {
@@ -21,7 +22,6 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
     private LineRenderer _InfoLine;
 
     private SnapPositions _childLink;
-    private Vector3 _previousMousePosition = Vector2.zero;
 
     private void Awake()
     {
@@ -90,9 +90,7 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
 
         Vector3 newMousePosition = Camera.main.ScreenToWorldPoint(eventData.position);
         newMousePosition.z = 0;
-         //transform.position += (newMousePosition - _previousMousePosition);
          transform.position = newMousePosition;
-        //_previousMousePosition = newMousePosition;
 
         if (_childLink == null)
             return;
@@ -155,13 +153,21 @@ public class SnapingParts : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
         if (_childLink != null && _childLink.snappedTo != null)
             _childLink.snappedTo.snapManager.removeBodyList(bodyElements);
         transform.SetParent(defaultParent);
-        _previousMousePosition = Camera.main.ScreenToWorldPoint(eventData.position);
-        _previousMousePosition.z = 0;
 
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        // if right click
+        if (eventData.pointerId != -2)
+            return;
+        foreach (SnapPositions pos in PartAttachments)
+        {
+            if (pos.snappedTo != null)
+                return;
+        }
+        GameManager.instance.AddLimb(inventoryID, 1);
+        Destroy(gameObject);
     }
 
     private SnapPositions FindNeerestAttach()
