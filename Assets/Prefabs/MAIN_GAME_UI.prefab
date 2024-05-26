@@ -2310,10 +2310,10 @@ RectTransform:
   - {fileID: 860225174049387400}
   m_Father: {fileID: 5848363866139688325}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 401.0822, y: -269.74182}
+  m_SizeDelta: {x: 550, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1129660125664244855
 CanvasRenderer:
@@ -7045,10 +7045,10 @@ RectTransform:
   - {fileID: 5609269938421026842}
   m_Father: {fileID: 5848363866139688325}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 401.0822, y: -779.7418}
+  m_SizeDelta: {x: 550, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2202003242922789087
 CanvasRenderer:
@@ -12464,7 +12464,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5699734915750283363
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12993,10 +12993,10 @@ RectTransform:
   - {fileID: 8175595133153666899}
   m_Father: {fileID: 5848363866139688325}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1151.0823, y: -269.74182}
+  m_SizeDelta: {x: 550, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6102326054529389264
 CanvasRenderer:
@@ -14180,10 +14180,10 @@ RectTransform:
   - {fileID: 3726551626376416135}
   m_Father: {fileID: 5848363866139688325}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1151.0823, y: -779.7418}
+  m_SizeDelta: {x: 550, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4106530792661159764
 CanvasRenderer:
