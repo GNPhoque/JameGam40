@@ -20,6 +20,9 @@ public class QuestBoard : MonoBehaviour
 	
 	List<QuestNote> questNotes = new List<QuestNote>();
 
+	public GameObject endGame;
+	public TextMeshProUGUI endGameText;
+
 	private void Awake()
 	{
 		GameManager.instance.onTeethValueChanged += GameManager_onTeethValueChanged;
@@ -78,6 +81,8 @@ public class QuestBoard : MonoBehaviour
 	{
 		if(questLists.Count <= 0)
 		{
+			endGame.SetActive(true);
+			endGameText.text = endGameText.text.Replace("SCORE", GameManager.instance.pentacles.ToString());
 			//TODO : VICTORY + show score
 			print("GAME WON");
 			return;
