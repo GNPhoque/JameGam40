@@ -2,37 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using TMPro;
 
-public class BodyPartSpawner : MonoBehaviour, IPointerClickHandler, IDropHandler
+public class BodyPartSpawner : MonoBehaviour, IPointerClickHandler
 {
     public GameObject PartReference;
 
     public Transform SpawnParent;
     public string partName;
-
-    private List<GameObject> _spawned;
-
-    public void OnDrop(PointerEventData eventData)
-    {
-        GameObject dropedObject = eventData.pointerDrag;
-        Debug.Log($"droped {dropedObject.name} on {name}");
-        if (!_spawned.Contains(dropedObject))
-            return;
-
-        // check for any snapped object
-        SnapingParts objectScript = dropedObject.GetComponent<SnapingParts>();
-        if (objectScript == null)
-            return;
-        foreach (SnapPositions posSnaper in objectScript.PartAttachments)
-        {
-            if (posSnaper.snappedTo != null)
-                return;
-        }
-
-        GameManager.instance.AddLimb(partName);
-        _spawned.Remove(dropedObject);
-        Destroy(dropedObject);
-    }
+    public TextMeshProUGUI stock;
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -41,19 +19,18 @@ public class BodyPartSpawner : MonoBehaviour, IPointerClickHandler, IDropHandler
         GameObject newPart = Instantiate(PartReference, SpawnParent);
 
         newPart.GetComponent<SnapingParts>().defaultParent = SpawnParent;
-        _spawned.Add(newPart);
 
         Debug.Log("Spawner Clicked");
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void setStock(int LimbStock)
     {
-        _spawned = new List<GameObject>();
+        stock.text = LimbStock.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
+
     }
 }

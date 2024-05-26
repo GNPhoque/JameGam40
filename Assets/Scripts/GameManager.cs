@@ -80,6 +80,10 @@ public class GameManager : MonoBehaviour
 	{
 		return inventory.TakeLimb(limb, qty);
 	}
+	public int GetLimbStock(string limb)
+	{
+		return inventory.GetLimbStock(limb);
+	}
 
 	public void UnlockShovel(Shovel shovel)
 	{

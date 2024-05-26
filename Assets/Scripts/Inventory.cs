@@ -22,6 +22,12 @@ public class Inventory : ScriptableObject
 		}
 	}
 
+	public int GetLimbStock(string limb)
+	{
+		if (!limbs.ContainsKey(limb)) Debug.LogError($"Inventory does not contain {limb}, check spelling in ScriptableObjects/CurrentInventory");
+		return limbs[limb];
+	}
+
 	public void AddLimb(string limb, int qty = 1)
 	{
 		if (!limbs.ContainsKey(limb)) Debug.LogError($"Inventory does not contain {limb}, check spelling in ScriptableObjects/CurrentInventory");
