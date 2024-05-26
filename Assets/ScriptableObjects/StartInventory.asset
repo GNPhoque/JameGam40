@@ -15,7 +15,7 @@ MonoBehaviour:
   limbs:
     _serializedList:
     - Key: Arm1_1
-      Value: 0
+      Value: 1
     - Key: Arm2_1
       Value: 0
     - Key: Arm2_2
@@ -35,7 +35,7 @@ MonoBehaviour:
     - Key: Hand2_2
       Value: 0
     - Key: Head1_1
-      Value: 0
+      Value: 1
     - Key: Head2_1
       Value: 0
     - Key: Leg1_1
@@ -47,6 +47,6 @@ MonoBehaviour:
     - Key: LegFull
       Value: 0
     - Key: Torso1_1
-      Value: 0
+      Value: 1
     - Key: Torso2_1
       Value: 0

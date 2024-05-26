@@ -9,41 +9,42 @@ public class QuestBoard : MonoBehaviour
 {
 	[SerializeField] TextMeshProUGUI teethText;
 	[SerializeField] TextMeshProUGUI pentacleText;
+
 	[SerializeField] QuestNote questPrefab;
-	[SerializeField] List<Quest> quests;
 	[SerializeField] Transform noteGrid;
+
+	[SerializeField] List<QuestList> questLists;
 	
 	List<QuestNote> questNotes = new List<QuestNote>();
 
 	private void Awake()
 	{
 		GameManager.instance.onTeethValueChanged += GameManager_onTeethValueChanged;
-		GameManager.instance.onPentaclesValueChanged += Instance_onPentaclesValueChanged; ;
-	}
-
-	private void GameManager_onTeethValueChanged(int obj)
-	{
-		teethText.text = obj.ToString();
-	}
-
-	private void Instance_onPentaclesValueChanged(int obj)
-	{
-		pentacleText.text = obj.ToString();
+		GameManager.instance.onPentaclesValueChanged += Instance_onPentaclesValueChanged;
+	
+		SpawnQuestNotes();
 	}
 
 	private void OnEnable()
 	{
-		foreach (var quest in quests)
-		{
-			if (questNotes.Any(x => x.quest == quest)) continue;
+		//OLD
 
-			QuestNote note = Instantiate(questPrefab, noteGrid);
-			note.quest = quest;
-			note.OnQuestNoteClick += Note_OnQuestNoteClick;
-			note.Setup();
-			questNotes.Add(note);
-		}
+		//foreach (var quest in quests)
+		//{
+		//	if (questNotes.Any(x => x.quest == quest)) continue;
 
+		//	QuestNote note = Instantiate(questPrefab, noteGrid);
+		//	note.quest = quest;
+		//	note.OnQuestNoteClick += Note_OnQuestNoteClick;
+		//	note.Setup();
+		//	questNotes.Add(note);
+		//}
+
+		CheckCompletedQuests();
+	}
+
+	private void CheckCompletedQuests()
+	{
 		foreach (var note in questNotes)
 		{
 			if (IsQuestComplete(note.quest))
@@ -57,6 +58,36 @@ public class QuestBoard : MonoBehaviour
 				note.isComplete = false;
 			}
 		}
+	}
+
+	void ClearQuestNotes()
+	{
+		foreach (var note in questNotes)
+		{
+			Destroy(note.gameObject);
+		}
+
+		questNotes.Clear();
+	}
+
+	void SpawnQuestNotes()
+	{
+		if(questLists.Count <= 0)
+		{
+			//TODO : VICTORY + show score
+			print("GAME WON");
+			return;
+		}
+
+		foreach (var quest in questLists[0].quests)
+		{
+			QuestNote note = Instantiate(questPrefab, noteGrid);
+			note.quest = quest;
+			note.OnQuestNoteClick += Note_OnQuestNoteClick;
+			note.Setup();
+			questNotes.Add(note);
+		}
+		questLists.RemoveAt(0);
 	}
 
 	private void Note_OnQuestNoteClick(QuestNote note)
@@ -73,9 +104,10 @@ public class QuestBoard : MonoBehaviour
 		GameManager.instance.pentacles += note.quest.pentacleReward;
 
 		GameManager.instance.BuildedBodys.Remove(body);
-		quests.Remove(note.quest);
 		Destroy(body.gameObject);
-		Destroy(note.gameObject);
+
+		ClearQuestNotes();
+		SpawnQuestNotes();
 	}
 
 	public bool IsQuestComplete(Quest quest)
@@ -108,5 +140,15 @@ public class QuestBoard : MonoBehaviour
 			}
 		}
 		return true;
+	}
+
+	private void GameManager_onTeethValueChanged(int obj)
+	{
+		teethText.text = obj.ToString();
+	}
+
+	private void Instance_onPentaclesValueChanged(int obj)
+	{
+		pentacleText.text = obj.ToString();
 	}
 }

@@ -8633,9 +8633,10 @@ MonoBehaviour:
   teethText: {fileID: 341476454271329930}
   pentacleText: {fileID: 5408602966284680277}
   questPrefab: {fileID: 5009846601614063980, guid: ee0a09aea7c730d468ef15eb5d725640, type: 3}
-  quests:
-  - {fileID: 11400000, guid: cc9b43f870f4bef4cbbc7ea7effb0bd3, type: 2}
   noteGrid: {fileID: 8921630495147772840}
+  questLists:
+  - {fileID: 11400000, guid: 3bab2b5c74cbd70418f5167f68a10dba, type: 2}
+  - {fileID: 11400000, guid: 93a37d54b18e68b49b802faa2847936b, type: 2}
 --- !u!114 &7168540444341850019
 MonoBehaviour:
   m_ObjectHideFlags: 0
