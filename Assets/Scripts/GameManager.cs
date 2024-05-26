@@ -110,4 +110,10 @@ public class GameManager : MonoBehaviour
 	{
 		shovels[shovel] = true;
 	}
+
+	[ContextMenu("AddTeeth")]
+	public void AddTeeth()
+	{
+		teeth += 5000;
+	}
 }

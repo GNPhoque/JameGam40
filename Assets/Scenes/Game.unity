@@ -3512,6 +3512,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c4100c3170f5f47bf4385fc9c34554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3626031279701543645 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2139415235995557175, guid: 5b921b8a0c44dce4995e54e0e123731c, type: 3}
+  m_PrefabInstance: {fileID: 3626031279701543643}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3626031279701543646 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7732567889570140038, guid: 5b921b8a0c44dce4995e54e0e123731c, type: 3}
+  m_PrefabInstance: {fileID: 3626031279701543643}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3626031279701543647 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8582787751935159269, guid: 5b921b8a0c44dce4995e54e0e123731c, type: 3}
+  m_PrefabInstance: {fileID: 3626031279701543643}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7793642200890359334
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3585,6 +3600,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 349059188563413915, guid: a979cb74b5e07e246aeb8d0da4cfa5e2, type: 3}
+      propertyPath: graveyardTool
+      value: 
+      objectReference: {fileID: 3626031279701543645}
+    - target: {fileID: 2259507571636920387, guid: a979cb74b5e07e246aeb8d0da4cfa5e2, type: 3}
+      propertyPath: graveyardTool
+      value: 
+      objectReference: {fileID: 3626031279701543646}
     - target: {fileID: 2623479047233239679, guid: a979cb74b5e07e246aeb8d0da4cfa5e2, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -3668,6 +3691,26 @@ PrefabInstance:
     - target: {fileID: 4340907130694435617, guid: a979cb74b5e07e246aeb8d0da4cfa5e2, type: 3}
       propertyPath: m_Name
       value: MAIN_GAME_UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5848363866139688325, guid: a979cb74b5e07e246aeb8d0da4cfa5e2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 36.32959
+      objectReference: {fileID: 0}
+    - target: {fileID: 5848363866139688325, guid: a979cb74b5e07e246aeb8d0da4cfa5e2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -15.258057
+      objectReference: {fileID: 0}
+    - target: {fileID: 7229881661780292213, guid: a979cb74b5e07e246aeb8d0da4cfa5e2, type: 3}
+      propertyPath: graveyardTool
+      value: 
+      objectReference: {fileID: 3626031279701543647}
+    - target: {fileID: 8921630495147772840, guid: a979cb74b5e07e246aeb8d0da4cfa5e2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -17.89502
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921630495147772840, guid: a979cb74b5e07e246aeb8d0da4cfa5e2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -50.08313
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

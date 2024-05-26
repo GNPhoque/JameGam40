@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class ShovelShopItem : MonoBehaviour, IPointerClickHandler
 {
+	[SerializeField] GameObject graveyardTool;
 	[SerializeField] GameObject soldoutObject;
 	[SerializeField] Shovel shovel;
 	[SerializeField] int cost;
@@ -23,6 +24,8 @@ public class ShovelShopItem : MonoBehaviour, IPointerClickHandler
 		{
 			GameManager.instance.teeth -= cost;
 			GameManager.instance.UnlockShovel(shovel);
+			graveyardTool.SetActive(true);
+			ShowSoldOut();
 			soldout = true;
 		}
 		else

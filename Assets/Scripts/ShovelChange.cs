@@ -24,7 +24,7 @@ public class ShovelChange : MonoBehaviour, IPointerClickHandler
 
 	private void ShovelChange_OnShovelChanged(Shovel obj)
 	{
-		if (shovel = obj) spriteRenderer.color = Color.white;
+		if (shovel == obj) spriteRenderer.color = Color.white;
 		else spriteRenderer.color = unselectedColor;
 	}
 
