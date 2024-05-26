@@ -10,7 +10,9 @@ public class QTE : MonoBehaviour
     public int QTESequenceSize = 5;
     public int QTESequenceTime = 5;
 
-    public TextMeshProUGUI timer;
+    public TextMeshProUGUI timerSeconds;
+    public TextMeshProUGUI TimerMilliSeconds;
+    public GameObject timer;
 
     public GameObject BGKey;
 
@@ -48,7 +50,8 @@ public class QTE : MonoBehaviour
         }
         if (!_gameStarted)
             return;
-        timer.text = $"{(int)_sequenceRemainingTime}:{(int)((_sequenceRemainingTime % 1) * 1000)}";
+        timerSeconds.text = $"{(int)_sequenceRemainingTime}:";
+        TimerMilliSeconds.text = $"{(int)((_sequenceRemainingTime % 1) * 1000)}";
         if (!Input.anyKeyDown)
             return;
         BGKey currentKey = sequences[_currentSequence][_currentSequenceKey];
@@ -67,7 +70,7 @@ public class QTE : MonoBehaviour
             _toSew[_currentSequence].sew();
             if (_currentSequence + 1 == sequences.Count)
             {
-                timer.gameObject.SetActive(false);
+                timer.SetActive(false);
                 _gameStarted = false;
                 return;
             }
@@ -86,7 +89,7 @@ public class QTE : MonoBehaviour
         // count number or sequences to do
         int seqNumbers = 0;
         _toSew.Clear();
-        timer.gameObject.SetActive(true);
+        timer.SetActive(true);
         foreach (SnapPositions snaper in SnapPositions.parentSnapers)
         {
             if (snaper.snappedTo == null || snaper.sewed)
