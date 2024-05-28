@@ -40,7 +40,7 @@ public class CameraMovement : MonoBehaviour
 	{
 		UnfocusCameras();
 		camShop.Priority = 10;
-		AudioManager.instance.CrossfadeToShop();
+		//AudioManager.instance.CrossfadeToShop();
 		OnShopCameraFocused?.Invoke();
 	}
 
@@ -48,7 +48,7 @@ public class CameraMovement : MonoBehaviour
 	{
 		UnfocusCameras();
 		camWorkshop.Priority = 10;
-		AudioManager.instance.CrossfadeToWorkshop();
+		//AudioManager.instance.CrossfadeToWorkshop();
 		OnWorkshopCameraFocused?.Invoke();
 	}
 
@@ -56,7 +56,7 @@ public class CameraMovement : MonoBehaviour
 	{
 		UnfocusCameras();
 		camGraveyard.Priority = 10;
-		AudioManager.instance.CrossfadeToGraveyard();
+		//AudioManager.instance.CrossfadeToGraveyard();
 		OnGraveyardCameraFocused?.Invoke();
 	}
 }
